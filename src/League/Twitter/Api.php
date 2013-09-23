@@ -58,7 +58,7 @@ class Api
             $this->base_url = $base_url;
         }
 
-        if (! is_null($consumer_key) and (is_null($access_token_key) or is_null($access_token_secret)) {
+        if (! is_null($consumer_key) and is_null($access_token_key) or is_null($access_token_secret)) {
             throw new Exception('Twitter requires OAuth Access Token for all API access');
         }
 
@@ -86,8 +86,7 @@ class Api
         $this->access_token_secret = $access_token_secret;
         $this->oauth_consumer      = null;
 
-        if (
-            ! is_null($consumer_key) and ! is_null($consumer_secret) and 
+        if (! is_null($consumer_key) and ! is_null($consumer_secret) and
             ! is_null($access_token_key) and ! is_null($access_token_secret)
         ) {
             $this->signature_method_plaintext = oauth.SignatureMethod_PLAINTEXT();
@@ -114,8 +113,7 @@ class Api
         $http_method = 'GET',
         array $parameters = null,
         $options = array()
-    )
-    {
+    ) {
         $no_cache = isset($options['no_cache']) ? $options['no_cache'] : null;
         $use_gzip_compression = isset($options['use_gzip_compression']) ? $options['use_gzip_compression'] : null;
    
@@ -148,7 +146,7 @@ class Api
     /**
      * Clear the any credentials for this instance.
      */
-    public function clearCredentials() 
+    public function clearCredentials()
     {
         $this->consumer_key        = null;
         $this->consumer_secret     = null;
@@ -876,7 +874,8 @@ class Api
      *
      * @return array[League\Twitter\Status]
      */
-    public function getRetweets($status_id, $count = null, trim_user=false):
+    public function getRetweets($status_id, $count = null, trim_user=false)
+    {
 
         if (! $this->_oauth_consumer) {
             throw new Exception("The League\Twitter\Api instsance must be authenticated.");
@@ -1065,7 +1064,7 @@ class Api
         if (! is_null($screen_name)) {
             $parameters['screen_name'] = $screen_name;
         }
-        if ($stringify_ids):
+        if ($stringify_ids) {
             $parameters['stringify_ids'] = true;
         }
         if (! is_null($count)) {
@@ -1105,13 +1104,12 @@ class Api
      * @return array[int]
      */
     public function getFollowerIDs(
-        $user_id = null, 
-        $screen_name = null, 
-        $cursor = -1, 
-        $stringify_ids = false, 
+        $user_id = null,
+        $screen_name = null,
+        $cursor = -1,
+        $stringify_ids = false,
         $count = null
-    )
-    {
+    ) {
         $url = sprint('%s/followers/ids.json', $this->base_url);
 
         if (! $this->_oauth_consumer) {
@@ -1782,7 +1780,8 @@ class Api
      *
      * @return League\Twitter\List
      */
-    public function createList($name, $mode = null, $description = null):
+    public function createList($name, $mode = null, $description = null)
+    {
    
         $url = "{$this->base_url}/lists/create.json";
 
@@ -1810,8 +1809,7 @@ class Api
         $owner_id = false,
         $list_id = null,
         $slug = null
-    )
-    {
+    ) {
         $url  = "{$this->base_url}/lists/destroy.json";
         $data = array();
 
@@ -1988,7 +1986,8 @@ class Api
         }, $data['lists']);
     }
 
-    public function getLists($user_id = null, $screen_name = null, $count = null, cursor=-1):
+    public function getLists($user_id = null, $screen_name = null, $count = null, cursor=-1)
+    {
        
         if (! $this->_oauth_consumer) {
             throw new Exception("League\Twitter\Api instance must be authenticated");
@@ -2037,8 +2036,8 @@ class Api
         return $result;
     }
 
-    public function verifyCredentials(self):
-       
+    public function verifyCredentials(self)
+    {
         if (! $this->_oauth_consumer) {
             throw new Exception("Api instance must first be given user credentials.")
         $url = "{$this->base_url}/account/verify_credentials.json";
@@ -2228,7 +2227,7 @@ class Api
 
     protected function initializeRequestHeaders($request_headers)
     {
-        if ($request_headers):
+        if ($request_headers) {
             $this->request_headers = $request_headers;
         } else {
             $this->request_headers = array();
@@ -2278,7 +2277,7 @@ class Api
     /**
      * Return a string in key=value&key=value form
      */
-    protect function encodePostData($post_data)
+    protected function encodePostData($post_data)
     {
         if (is_null($post_data)) {
             return null;
