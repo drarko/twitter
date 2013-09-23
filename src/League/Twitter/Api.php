@@ -124,7 +124,7 @@ class Api
         if ($parameters) {
             $extra_params = array_merge($extra_params, $parameters);
         }
-
+ 
         $client = $this->http_handler;
 
         if ($http_method === 'GET') {
@@ -133,6 +133,11 @@ class Api
         } elseif ($http_method === 'POST') {
             $params = $this->encodePostData($parameters);
             $request = $client->post($http_method, $this->request_headers, $params);
+
+            if (isset($parameters['media'])) {
+                $request->addPostFiles(array('file' => $parameters['media']));
+            }
+            
         } else {
             throw new Exception("The Twitter API only supports GET/POST because it's lazy and weird.");
         }
@@ -665,6 +670,80 @@ class Api
         $json = $this->fetchUrl($url, 'GET', $data);
         $data = $this->parseAndCheckTwitter($json);
         return Status::newFromJsonArray($data);
+    }
+
+    /**
+     * Post a twitter status message containing media from the authenticated user.
+     *
+     * The League\Twitter\Api instance must be authenticated.
+     *
+     * @link https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
+     *
+     * @param string $status The message text to be posted. Must be less 
+     *   than or equal to 140 characters.
+     * @param string $media The location of the media to be sent with the status.
+     * @param int in_reply_to_status_id The ID of an existing status that the status to 
+     *   be posted is in reply to.  This implicitly sets the in_reply_to_user_id
+     *   attribute of the resulting status to the user ID of the message being replied 
+     *   to. Invalid/missing status IDs will be ignored. [Optional]
+     * @param float $latitude Latitude coordinate of the tweet in degrees. 
+     *   Will only work in conjunction with longitude argument. Both longitude and
+     *   latitude will be ignored by twitter if the user has a false
+     *   geo_enabled setting. [Optional]
+     * @param float $longitude Longitude coordinate of the tweet in degrees. 
+     *   Will only work in conjunction with latitude argument. Both longitude and
+     *   latitude will be ignored by twitter if the user has a false
+     *   geo_enabled setting. [Optional]
+     * @param string $place_id A place in the world. These IDs can 
+     * be retrieved from ET geo/reverse_geocode. [Optional]
+     * @param bool $display_coordinates Whether or not to put a pin on the exact 
+     *   coordinates a tweet as been sent from. [Optional]
+     *
+     * @return League\Twitter\Status
+     */
+    public function postUpdateWithMedia(
+        $status,
+        $media,
+        $in_reply_to_status_id = null,
+        $latitude = null,
+        $longitude = null,
+        $place_id = null,
+        $display_coordinates = false
+    ) {
+
+        if (! $this->_oauth_consumer) {
+            throw new Exception("The League\Twitter\Api instance must be authenticated.");
+        }
+
+        $url = "{$this->base_url}/statuses/update_with_media.json";
+
+        if ($this->calculateStatusLength($status, $this->_shortlink_size) > static::CHARACTER_LIMIT) {
+            throw new \InvalidArgumentException("Text must be less than or equal to {static::CHARACTER_LIMIT} characters.");
+        }
+
+        $data = array(
+            'status' => $status,
+            'media' => $media
+        );
+
+        if ($in_reply_to_status_id) {
+            $data['in_reply_to_status_id'] = $in_reply_to_status_id;
+        }
+        if (! (is_null($latitude) or is_null($longitude))) {
+            $data['lat']     = (string) $latitude;
+            $data['long']    = (string) $longitude;
+        }
+        if (! (is_null($place_id))) {
+            $data['place_id'] = (string) $place_id;
+        }
+        if ($display_coordinates) {
+            $data['display_coordinates'] = 'true';
+        }
+
+        $json = $this->fetchUrl($url, 'POST', $data);
+        $data = $this->parseAndCheckTwitter($json);
+        return Status::newFromJsonArray($data);
+
     }
 
     /**
