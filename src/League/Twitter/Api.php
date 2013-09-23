@@ -5,18 +5,18 @@ use Guzzle\Http\Client;
 class Api
 {
     # cache for 1 minute
-    public const DEFAULT_CACHE_TIMEOUT = 60;
+    const DEFAULT_CACHE_TIMEOUT = 60;
   
-    private const API_REALM = 'Twitter API';
+    const API_REALM = 'Twitter API';
 
-    private const CHARACTER_LIMIT = 140;
+    const CHARACTER_LIMIT = 140;
 
     protected $consumer_key;
     protected $consumer_secret;
     protected $access_token_key;
     protected $access_token_secret;
 
-    protected $oauth_token
+    protected $oauth_token;
     protected $oauth_consumer;
 
     protected $signature_method_plaintext;
