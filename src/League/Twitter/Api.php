@@ -105,7 +105,7 @@ class Api
      * @param string $url
      * @param string $http_method
      * @param array $parameters
-     * @param bool $options
+     * @param array $options
      *
      * @return string
      */
