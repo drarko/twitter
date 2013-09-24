@@ -162,7 +162,7 @@ class Api
      * @param int $since_id Returns results with an ID greater than the specified ID.
      * @param int $max_id Returns only statuses with an ID less than or equal to the specified ID.
      * @param string $until Returns tweets generated before the given date (YYYY-MM-DD).
-     * @param string $geocode Geolocation information in the form (latitude, longitude, radius)
+     * @param array $geocode Geolocation information in the form (latitude, longitude, radius)
      * @param string $count Number of results to return. Default is 15
      * @param string $lang Language for results as ISO 639-1 code. Default is null (all languages)
      * @param string $locale Language of the search query. Currently only 'ja' is effective.
@@ -209,7 +209,7 @@ class Api
             $parameters['q'] = $term;
         }
         if (! is_null($geocode)) {
-            $parameters['geocode'] = implode(',', map(str, geocode));
+            $parameters['geocode'] = implode(',', array_map('strval', $geocode));
         }
         if ($include_entities) {
             $parameters['include_entities'] = 1;
