@@ -5,18 +5,18 @@ use Guzzle\Http\Client;
 class Api
 {
     # cache for 1 minute
-    public const DEFAULT_CACHE_TIMEOUT = 60;
+    const DEFAULT_CACHE_TIMEOUT = 60;
   
-    private const API_REALM = 'Twitter API';
+    const API_REALM = 'Twitter API';
 
-    private const CHARACTER_LIMIT = 140;
+    const CHARACTER_LIMIT = 140;
 
     protected $consumer_key;
     protected $consumer_secret;
     protected $access_token_key;
     protected $access_token_secret;
 
-    protected $oauth_token
+    protected $oauth_token;
     protected $oauth_consumer;
 
     protected $signature_method_plaintext;
@@ -54,11 +54,11 @@ class Api
 
         if (is_null($base_url)) {
             $this->base_url = 'https://api.twitter.com/1.1';
-        } else {
+        } else {  
             $this->base_url = $base_url;
         }
 
-        if (! is_null($consumer_key) and (is_null($access_token_key) or is_null($access_token_secret)) {
+        if (! is_null($consumer_key) and is_null($access_token_key) or is_null($access_token_secret)) {
             throw new Exception('Twitter requires OAuth Access Token for all API access');
         }
 
@@ -86,8 +86,7 @@ class Api
         $this->access_token_secret = $access_token_secret;
         $this->oauth_consumer      = null;
 
-        if (
-            ! is_null($consumer_key) and ! is_null($consumer_secret) and 
+        if (! is_null($consumer_key) and ! is_null($consumer_secret) and
             ! is_null($access_token_key) and ! is_null($access_token_secret)
         ) {
             $this->signature_method_plaintext = oauth.SignatureMethod_PLAINTEXT();
@@ -105,7 +104,7 @@ class Api
      * @param string $url
      * @param string $http_method
      * @param array $parameters
-     * @param bool $options
+     * @param array $options
      *
      * @return string
      */
@@ -114,8 +113,7 @@ class Api
         $http_method = 'GET',
         array $parameters = null,
         $options = array()
-    )
-    {
+    ) {
         $no_cache = isset($options['no_cache']) ? $options['no_cache'] : null;
         $use_gzip_compression = isset($options['use_gzip_compression']) ? $options['use_gzip_compression'] : null;
    
@@ -124,7 +122,7 @@ class Api
         if ($parameters) {
             $extra_params = array_merge($extra_params, $parameters);
         }
-
+ 
         $client = $this->http_handler;
 
         if ($http_method === 'GET') {
@@ -133,6 +131,11 @@ class Api
         } elseif ($http_method === 'POST') {
             $params = $this->encodePostData($parameters);
             $request = $client->post($http_method, $this->request_headers, $params);
+
+            if (isset($parameters['media'])) {
+                $request->addPostFiles(array('file' => $parameters['media']));
+            }
+            
         } else {
             throw new Exception("The Twitter API only supports GET/POST because it's lazy and weird.");
         }
@@ -143,7 +146,7 @@ class Api
     /**
      * Clear the any credentials for this instance.
      */
-    public function clearCredentials() 
+    public function clearCredentials()
     {
         $this->consumer_key        = null;
         $this->consumer_secret     = null;
@@ -668,6 +671,80 @@ class Api
     }
 
     /**
+     * Post a twitter status message containing media from the authenticated user.
+     *
+     * The League\Twitter\Api instance must be authenticated.
+     *
+     * @link https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
+     *
+     * @param string $status The message text to be posted. Must be less 
+     *   than or equal to 140 characters.
+     * @param string $media The location of the media to be sent with the status.
+     * @param int in_reply_to_status_id The ID of an existing status that the status to 
+     *   be posted is in reply to.  This implicitly sets the in_reply_to_user_id
+     *   attribute of the resulting status to the user ID of the message being replied 
+     *   to. Invalid/missing status IDs will be ignored. [Optional]
+     * @param float $latitude Latitude coordinate of the tweet in degrees. 
+     *   Will only work in conjunction with longitude argument. Both longitude and
+     *   latitude will be ignored by twitter if the user has a false
+     *   geo_enabled setting. [Optional]
+     * @param float $longitude Longitude coordinate of the tweet in degrees. 
+     *   Will only work in conjunction with latitude argument. Both longitude and
+     *   latitude will be ignored by twitter if the user has a false
+     *   geo_enabled setting. [Optional]
+     * @param string $place_id A place in the world. These IDs can 
+     * be retrieved from ET geo/reverse_geocode. [Optional]
+     * @param bool $display_coordinates Whether or not to put a pin on the exact 
+     *   coordinates a tweet as been sent from. [Optional]
+     *
+     * @return League\Twitter\Status
+     */
+    public function postUpdateWithMedia(
+        $status,
+        $media,
+        $in_reply_to_status_id = null,
+        $latitude = null,
+        $longitude = null,
+        $place_id = null,
+        $display_coordinates = false
+    ) {
+
+        if (! $this->_oauth_consumer) {
+            throw new Exception("The League\Twitter\Api instance must be authenticated.");
+        }
+
+        $url = "{$this->base_url}/statuses/update_with_media.json";
+
+        if ($this->calculateStatusLength($status, $this->_shortlink_size) > static::CHARACTER_LIMIT) {
+            throw new \InvalidArgumentException("Text must be less than or equal to {static::CHARACTER_LIMIT} characters.");
+        }
+
+        $data = array(
+            'status' => $status,
+            'media' => $media
+        );
+
+        if ($in_reply_to_status_id) {
+            $data['in_reply_to_status_id'] = $in_reply_to_status_id;
+        }
+        if (! (is_null($latitude) or is_null($longitude))) {
+            $data['lat']     = (string) $latitude;
+            $data['long']    = (string) $longitude;
+        }
+        if (! (is_null($place_id))) {
+            $data['place_id'] = (string) $place_id;
+        }
+        if ($display_coordinates) {
+            $data['display_coordinates'] = 'true';
+        }
+
+        $json = $this->fetchUrl($url, 'POST', $data);
+        $data = $this->parseAndCheckTwitter($json);
+        return Status::newFromJsonArray($data);
+
+    }
+
+    /**
      * Post one or more twitter status messages from the authenticated user.
      *
      * Unlike api.PostUpdate, this method will post multiple status updates
@@ -797,7 +874,8 @@ class Api
      *
      * @return array[League\Twitter\Status]
      */
-    public function getRetweets($status_id, $count = null, trim_user=false):
+    public function getRetweets($status_id, $count = null, trim_user=false)
+    {
 
         if (! $this->_oauth_consumer) {
             throw new Exception("The League\Twitter\Api instsance must be authenticated.");
@@ -986,7 +1064,7 @@ class Api
         if (! is_null($screen_name)) {
             $parameters['screen_name'] = $screen_name;
         }
-        if ($stringify_ids):
+        if ($stringify_ids) {
             $parameters['stringify_ids'] = true;
         }
         if (! is_null($count)) {
@@ -1026,13 +1104,12 @@ class Api
      * @return array[int]
      */
     public function getFollowerIDs(
-        $user_id = null, 
-        $screen_name = null, 
-        $cursor = -1, 
-        $stringify_ids = false, 
+        $user_id = null,
+        $screen_name = null,
+        $cursor = -1,
+        $stringify_ids = false,
         $count = null
-    )
-    {
+    ) {
         $url = sprint('%s/followers/ids.json', $this->base_url);
 
         if (! $this->_oauth_consumer) {
@@ -1703,7 +1780,8 @@ class Api
      *
      * @return League\Twitter\List
      */
-    public function createList($name, $mode = null, $description = null):
+    public function createList($name, $mode = null, $description = null)
+    {
    
         $url = "{$this->base_url}/lists/create.json";
 
@@ -1731,8 +1809,7 @@ class Api
         $owner_id = false,
         $list_id = null,
         $slug = null
-    )
-    {
+    ) {
         $url  = "{$this->base_url}/lists/destroy.json";
         $data = array();
 
@@ -1909,7 +1986,8 @@ class Api
         }, $data['lists']);
     }
 
-    public function getLists($user_id = null, $screen_name = null, $count = null, cursor=-1):
+    public function getLists($user_id = null, $screen_name = null, $count = null, $cursor = -1)
+    {
        
         if (! $this->_oauth_consumer) {
             throw new Exception("League\Twitter\Api instance must be authenticated");
@@ -1958,8 +2036,8 @@ class Api
         return $result;
     }
 
-    public function verifyCredentials(self):
-       
+    public function verifyCredentials()
+    {
         if (! $this->_oauth_consumer) {
             throw new Exception("Api instance must first be given user credentials.")
         $url = "{$this->base_url}/account/verify_credentials.json";
@@ -2149,7 +2227,7 @@ class Api
 
     protected function initializeRequestHeaders($request_headers)
     {
-        if ($request_headers):
+        if ($request_headers) {
             $this->request_headers = $request_headers;
         } else {
             $this->request_headers = array();
@@ -2199,7 +2277,7 @@ class Api
     /**
      * Return a string in key=value&key=value form
      */
-    protect function encodePostData($post_data)
+    protected function encodePostData($post_data)
     {
         if (is_null($post_data)) {
             return null;
