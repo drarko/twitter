@@ -31,7 +31,7 @@ class Api
         $access_token_key = null,
         $access_token_secret = null,
         $request_headers = null,
-       // $cache = static::DEFAULT_CACHE,
+        // $cache = static::DEFAULT_CACHE,
         // $http = static::DEFAULT_HTTP,
         $shortner = null,
         $base_url = null,
@@ -54,7 +54,7 @@ class Api
 
         if (is_null($base_url)) {
             $this->base_url = 'https://api.twitter.com/1.1';
-        } else {  
+        } else {
             $this->base_url = $base_url;
         }
 
@@ -226,8 +226,15 @@ class Api
         $json = $this->fetchUrl($url, $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
-        // Return built list of statuses
-        //return [Status.NewFromJsonDict(x) for x in data['statuses']];
+        // Build and return a list of statuses
+        $result = array_map(
+            function ($x) {
+                return Status::newFromJsonArray($x);
+            },
+            $data['statuses']
+        );
+
+        return $result;
     }
 
     /**
@@ -260,8 +267,13 @@ class Api
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->_ParseAndCheckTwitter($json);
 
-        $callable = array('User', 'newFromJsonArray');
-        $result = $this->buildResult($data, $callable);
+        $result = array_map(
+            function ($x) {
+                return User::newFromJsonArray($x);
+            },
+            $data
+        );
+
         return $result;
     }
 
@@ -298,8 +310,13 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
         $timestamp = $data[0]['as_of'];
 
-        $callable = array('Trend', 'newFromJsonDict');
-        $trends = $this->buildResult($data[0]['trends'], $callable, array($timestamp));
+        $trends = array_map(
+            function ($x) use ($timestamp) {
+                return Trend::newFromJsonArray($x, $timestamp);
+            },
+            $data[0]['trends']
+        );
+
         return $trends;
     }
 
@@ -397,11 +414,16 @@ class Api
         if (! $include_entities) {
             $parameters['include_entities'] = 'false';
         }
-        $json = $this->fetchUrl(url, 'GET', $parameters);
+        $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
-        $callable = array('Status', 'newFromJsonArray');
-        $result = $this->buildResult($data, $callable);
+        $result = array_map(
+            function ($x) {
+                return Status::newFromJsonArray($x);
+            },
+            $data
+        );
+
         return $result;
     }
 
@@ -494,8 +516,13 @@ class Api
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
-        $callable = array('Status', 'newFromJsonArray');
-        $result = $this->buildResult($data, $callable);
+        $result = array_map(
+            function ($x) {
+                return Status::newFromJsonArray($x);
+            },
+            $data
+        );
+
         return $result;
     }
 
@@ -547,7 +574,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonDict($data);
+        return Status::newFromJsonArray($data);
     }
     
     /**
@@ -903,8 +930,13 @@ class Api
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
-        $callable = array('Status', 'newFromJsonArray');
-        $result = $this->buildResult($data, $callable);
+        $result = array_map(
+            function ($x) {
+                return Status::newFromJsonArray($x);
+            },
+            $data
+        );
+
         return $result;
     }
 
@@ -971,8 +1003,13 @@ class Api
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
-        $callable = array('Status', 'newFromJsonArray');
-        $result = $this->buildResult($data, $callable);
+        $result = array_map(
+            function ($x) {
+                return Status::newFromJsonArray($x);
+            },
+            $data
+        );
+
         return $result;
     }
 
@@ -1029,9 +1066,15 @@ class Api
             $parameters['cursor'] = $cursor;
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
-            $callable = array('User', 'newFromJsonArray');
 
-            $result += $this->buildResult($data['users'], $callable);
+            $result = array_map(
+                function ($x) {
+                    return User::newFromJsonArray($x);
+                },
+                $data['users']
+            );
+
+            $result += $result;
 
             if (array_key_exists('next_cursor', $data)) {
                 if ($data['next_cursor'] == 0 or $data['next_cursor'] == $data['previous_cursor']) {
@@ -1221,9 +1264,14 @@ class Api
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
 
-            $callable = array('User', 'newFromJsonArray');
+            $result = array_map(
+                function ($x) {
+                    return User::newFromJsonArray($x);
+                },
+                $data['users']
+            );
             
-            $result += $this->buildResult($data['users'], $callable);
+            $result += $result;
             
             if (isset($data['next_cursor'])) {
                 if ($data['next_cursor'] == 0 or $data['next_cursor'] === $data['previous_cursor']) {
@@ -1346,7 +1394,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray(data);
+        return User::newFromJsonArray($data);
     }
 
     /**
@@ -1407,7 +1455,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
         
         return array_map(function($message) {
-            return DirectMessage::newFromJsonArray(x);
+            return DirectMessage::newFromJsonArray($x);
         }, $data);
     }
     
@@ -1470,7 +1518,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
 
         return array_map(function($message) {
-            return DirectMessage::newFromJsonArray(x);
+            return DirectMessage::newFromJsonArray($x);
         }, $data);
     }
 
@@ -1522,7 +1570,7 @@ class Api
     public function destroyDirectMessage($id, $include_entities = true)
     {
         $url  = "{$this->base_url}/direct_messages/destroy.json";
-        $post = array('id' => $id); 
+        $post = array('id' => $id);
 
         if (! $include_entities) {
             $post['include_entities'] = 'false';
@@ -1590,7 +1638,7 @@ class Api
         }
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray(data);
+        return User::newFromJsonArray($data);
     }
 
     /**
@@ -1722,7 +1770,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
         
         return array_map(function ($status) {
-            return Status.NewFromJsonDict($status);
+            return Status::newFromJsonArray($status);
         }, $data);
     }
 
@@ -1792,7 +1840,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
 
         return array_map(function ($status) {
-            return Status::NewFromJsonDict($status);
+            return Status::newFromJsonArray($status);
         }, $data);
     }
 
@@ -2326,7 +2374,7 @@ class Api
 
     /**
      * Try and parse the JSON returned from Twitter and return
-     * an empty dictionary if there is any error. This is a purely
+     * an empty array if there is any error. This is a purely
      * defensive check because during some Twitter network outages
      * it will return an HTML failwhale page.
      */
@@ -2349,27 +2397,6 @@ class Api
         }
 
         return $data;
-    }
-
-    /**
-     * Builds a proper result from an array
-     * 
-     * @param array $data 
-     * @param callable $callable Should be a static newFromJsonArray method
-     * @return array
-     */
-    protected function buildResult(array $data, $callable, array $extra_params)
-    {
-        $result = array();
-        foreach ($data as $x) {
-            if (!empty($extra_params)) {
-                $params = array_merge(array($x), $extra_params);
-            } else {
-                $params = array($x);
-            }
-            $result[] = call_user_func_array($callable, $params);
-        }
-        return $result;
     }
 
     /**
