@@ -54,7 +54,7 @@ class Api
 
         if (is_null($base_url)) {
             $this->base_url = 'https://api.twitter.com/1.1';
-        } else {
+        } else {  
             $this->base_url = $base_url;
         }
 
@@ -1986,7 +1986,7 @@ class Api
         }, $data['lists']);
     }
 
-    public function getLists($user_id = null, $screen_name = null, $count = null, cursor=-1)
+    public function getLists($user_id = null, $screen_name = null, $count = null, $cursor = -1)
     {
        
         if (! $this->_oauth_consumer) {
@@ -2036,7 +2036,7 @@ class Api
         return $result;
     }
 
-    public function verifyCredentials(self)
+    public function verifyCredentials()
     {
         if (! $this->_oauth_consumer) {
             throw new Exception("Api instance must first be given user credentials.")
