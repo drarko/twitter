@@ -31,8 +31,8 @@ class Api
         $access_token_key = null,
         $access_token_secret = null,
         $request_headers = null,
-        $cache = static::DEFAULT_CACHE,
-        $http = static::DEFAULT_HTTP,
+       // $cache = static::DEFAULT_CACHE,
+        // $http = static::DEFAULT_HTTP,
         $shortner = null,
         $base_url = null,
         $use_gzip_compression = false,
@@ -93,8 +93,8 @@ class Api
             $this->signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1();
         }
 
-        $this->oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
-        $this->oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+        //$this->oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
+        //$this->oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
     }
 
 
@@ -126,7 +126,7 @@ class Api
         $client = $this->http_handler;
 
         if ($http_method === 'GET') {
-            $params = $this->encodeParameters($parameters));
+            $params = $this->encodeParameters($parameters);
             $request = $client->get($url.'?'.$params, $this->request_headers);
         } elseif ($http_method === 'POST') {
             $params = $this->encodePostData($parameters);
@@ -217,17 +217,17 @@ class Api
         
         $parameters['count'] = (int) $count;
 
-        if (in_array($result_type, array('mixed', 'popular', 'recent')) {
+        if (in_array($result_type, array('mixed', 'popular', 'recent'))) {
             $parameters['result_type'] = $result_type;
         }
 
         // Make and send requests
         $url  = "{$this->base_url}/search/tweets.json";
-        $json = $this->fetchUrl($url, $parameters)
-        $data = $this->parseAndCheckTwitter($json)
+        $json = $this->fetchUrl($url, $parameters);
+        $data = $this->parseAndCheckTwitter($json);
 
         // Return built list of statuses
-        return [Status.NewFromJsonDict(x) for x in data['statuses']];
+        //return [Status.NewFromJsonDict(x) for x in data['statuses']];
     }
 
     /**
@@ -257,9 +257,12 @@ class Api
 
         # Make and send requests
         $url  = "{$this->base_url}/users/search.json";
-        $$json = $this->fetchUrl($url, 'GET', $parameters);;
+        $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->_ParseAndCheckTwitter($json);
-        return [User::newFromJsonArray(x) for x in $data];
+
+        $callable = array('User', 'newFromJsonArray');
+        $result = $this->buildResult($data, $callable);
+        return $result;
     }
 
     /**
@@ -271,7 +274,7 @@ class Api
      */
     public function getTrendsCurrent($exclude = null)
     {
-        return $this->GetTrendsWoeid(id=1, exclude=exclude)
+        return $this->GetTrendsWoeid(1, $exclude);
     }
 
     /**
@@ -291,16 +294,12 @@ class Api
             $parameters['exclude'] = $exclude;
         }
 
-        $json = $this->fetchUrl($url, $parameters)
-        $data = $this->parseAndCheckTwitter($json)
+        $json = $this->fetchUrl($url, $parameters);
+        $data = $this->parseAndCheckTwitter($json);
+        $timestamp = $data[0]['as_of'];
 
-        $trends = []
-        $timestamp = data[0]['as_of']
-
-        foreach ($data[0]['trends'] as $trend) {
-            $trends[] = Trend::newFromJsonDict($trend, $timestamp));
-        }
-
+        $callable = array('Trend', 'newFromJsonDict');
+        $trends = $this->buildResult($data[0]['trends'], $callable, array($timestamp));
         return $trends;
     }
 
@@ -355,7 +354,7 @@ class Api
         
         $parameters = array();
 
-        if (! is_null($count) {
+        if (! is_null($count)) {
             if (! is_numeric($count)) {
                 throw new \InvalidArgumentException("'count' must be an integer");
             }
@@ -400,7 +399,10 @@ class Api
         }
         $json = $this->fetchUrl(url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return [Status::newFromJsonDict($x) for $x in data]
+
+        $callable = array('Status', 'newFromJsonArray');
+        $result = $this->buildResult($data, $callable);
+        return $result;
     }
 
     /**
@@ -451,6 +453,7 @@ class Api
 
         if ($user_id) {
             $parameters['user_id'] = $user_id;
+        }
         elseif ($screen_name) {
             $parameters['screen_name'] = $screen_name;
         }
@@ -488,9 +491,12 @@ class Api
             $parameters['exclude_replies'] = 1;
         }
 
-        $json = $this->fetchUrl($url, 'GET', $parameters)
-        $data = $this->parseAndCheckTwitter($json)
-        return [Status.NewFromJsonDict($x) for $x in $data]
+        $json = $this->fetchUrl($url, 'GET', $parameters);
+        $data = $this->parseAndCheckTwitter($json);
+
+        $callable = array('Status', 'newFromJsonArray');
+        $result = $this->buildResult($data, $callable);
+        return $result;
     }
 
     /**
@@ -559,16 +565,16 @@ class Api
     public function destroyStatus($id, $trim_user = false)
     {
         if (! $this->_oauth_consumer) {
-              throw new Exception("API must be authenticated.")
+              throw new Exception("API must be authenticated.");
         }
 
         if (! is_numeric($id)) {
             throw new \InvalidArgumentException("'id' must be an integer");
         }
 
-        $post_data = array('id': (int) $id);
+        $post_data = array('id' => (int) $id);
 
-        url  = "{$this->base_url}/statuses/destroy/{$id}.json";
+        $url  = "{$this->base_url}/statuses/destroy/{$id}.json";
         
         if ($trim_user) {
             $post_data['trim_user'] = 1;
@@ -628,7 +634,7 @@ class Api
      *
      * @return League\Twitter\Status
      */
-    public postUpdate(
+    public function postUpdate(
         $status,
         $in_reply_to_status_id = null,
         $latitude = null,
@@ -801,7 +807,7 @@ class Api
         if (! is_numeric($original_id)) {
             throw new \InvalidArgumentException("'original_id' must be an integer");
         }
-        if (! $original_id) <= 0) {
+        if (! ($original_id <= 0)) {
             throw new \InvalidArgumentException("'original_id' must be a positive number");
         }
 
@@ -813,7 +819,7 @@ class Api
             $data['trim_user'] = 'true';
         }
 
-        $json = $this->fetchUrl($url, 'GET', $data)
+        $json = $this->fetchUrl($url, 'GET', $data);
         $data = $this->parseAndCheckTwitter($json);
         return Status::newFromJsonArray($data);
     }
@@ -874,7 +880,7 @@ class Api
      *
      * @return array[League\Twitter\Status]
      */
-    public function getRetweets($status_id, $count = null, trim_user=false)
+    public function getRetweets($status_id, $count = null, $trim_user = false)
     {
 
         if (! $this->_oauth_consumer) {
@@ -896,7 +902,10 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return [Status::newFromJsonArray($s) for s in data];
+
+        $callable = array('Status', 'newFromJsonArray');
+        $result = $this->buildResult($data, $callable);
+        return $result;
     }
 
     /**
@@ -951,6 +960,7 @@ class Api
         }
         if ($trim_user) {
             $parameters['trim_user'] = $trim_user;
+        }
         if (! $include_entities) {
             $parameters['include_entities'] = $include_entities;
         }
@@ -960,7 +970,10 @@ class Api
         
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return [Status::newFromJsonArray($s) for s in data];
+
+        $callable = array('Status', 'newFromJsonArray');
+        $result = $this->buildResult($data, $callable);
+        return $result;
     }
 
     /**
@@ -1016,14 +1029,16 @@ class Api
             $parameters['cursor'] = $cursor;
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
-            $result += [User::newFromJsonArray(x) for x in data['users']];
+            $callable = array('User', 'newFromJsonArray');
 
-            if (array_key_exists('next_cursor', $data) {
+            $result += $this->buildResult($data['users'], $callable);
+
+            if (array_key_exists('next_cursor', $data)) {
                 if ($data['next_cursor'] == 0 or $data['next_cursor'] == $data['previous_cursor']) {
                     break;
+                } else {
+                    $cursor = $data['next_cursor'];
                 }
-            } else {
-                $cursor = $data['next_cursor'];
             } else {
                 break;
             }
@@ -1077,8 +1092,12 @@ class Api
             $parameters['cursor'] = $cursor;
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
-            $result += [x for x in data['ids']]
-            if (array_key_exists('next_cursor', $data) {
+
+            foreach ($data['ids'] as $x) {
+                $result += $x;
+            }
+
+            if (array_key_exists('next_cursor', $data)) {
                 if ($data['next_cursor'] == 0 or $data['next_cursor'] == $data['previous_cursor']) {
                     break;
                 } else {
@@ -1139,14 +1158,19 @@ class Api
             $parameters['cursor'] = $cursor;
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
-            $result += [x for x in data['ids']];
-            if (array_key_exists('next_cursor', $data) {
+
+            foreach ($data['ids'] as $x) {
+                $result += $x;
+            }
+
+            if (array_key_exists('next_cursor', $data)) {
                 if ($data['next_cursor'] == 0 or $data['next_cursor'] == $data['previous_cursor']) {
                     break;
+                } else {
+
+                    $cursor = $data['next_cursor'];
                 }
               } else {
-                $cursor = $data['next_cursor'];
-            else {
                 break;
             }
         }
@@ -1196,11 +1220,13 @@ class Api
             $parameters['cursor'] = $cursor;
             $json = $this->fetchUrl($url, 'GET', $parameters);
             $data = $this->parseAndCheckTwitter($json);
+
+            $callable = array('User', 'newFromJsonArray');
             
-            $result += [User::newFromJsonArray(x) for x in data['users']];
+            $result += $this->buildResult($data['users'], $callable);
             
             if (isset($data['next_cursor'])) {
-                if ($data['next_cursor'] == 0 or $data['next_cursor'] === $data['previous_cursor'] {
+                if ($data['next_cursor'] == 0 or $data['next_cursor'] === $data['previous_cursor']) {
                     break;
                 } else {
                     $cursor = $data['next_cursor'];
@@ -1262,7 +1288,7 @@ class Api
             $parameters['screen_name'] = implode(',', $screen_name);
         }
 
-        if (! $include_entities)
+        if (! $include_entities) {
             $parameters['include_entities'] = 'false';
         }
         
@@ -1476,7 +1502,7 @@ class Api
             throw new Exception("Specify at least one of user_id or screen_name.");
         }
 
-        $json = $this->fetchUrl($url, 'POST', $post)
+        $json = $this->fetchUrl($url, 'POST', $post);
         $data = $this->parseAndCheckTwitter($json);
 
         return DirectMessage::newFromJsonArray($data);
@@ -1502,7 +1528,7 @@ class Api
             $post['include_entities'] = 'false';
         }
 
-        $json = $this->fetchUrl($url, $post)
+        $json = $this->fetchUrl($url, $post);
         $data = $this->parseAndCheckTwitter($json);
         
         return DirectMessage::newFromJsonArray($data);
@@ -1530,7 +1556,7 @@ class Api
         } elseif ($screen_name) {
             $data['screen_name'] = $screen_name;
         } else {
-            throw new Exception("Specify at least one of user_id or screen_name.")
+            throw new Exception("Specify at least one of user_id or screen_name.");
         }
 
         $data['follow'] = $follow ? 'true' : 'false';
@@ -1564,7 +1590,7 @@ class Api
         }
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray(data)
+        return User::newFromJsonArray(data);
     }
 
     /**
@@ -1595,7 +1621,7 @@ class Api
             $post['include_entities'] = 'false';
         }
 
-        $json = $this->fetchUrl($url, 'POST', $post)
+        $json = $this->fetchUrl($url, 'POST', $post);
         $data = $this->parseAndCheckTwitter($json);
 
         return Status::newFromJsonArray($data);
@@ -1627,6 +1653,7 @@ class Api
 
         if (! $include_entities) {
             $data['include_entities'] = 'false';
+        }
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
@@ -1765,7 +1792,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
 
         return array_map(function ($status) {
-            return Status.NewFromJsonDict($status);
+            return Status::NewFromJsonDict($status);
         }, $data);
     }
 
@@ -1789,19 +1816,19 @@ class Api
             throw new Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
-        $post_data = {'name': name}
+        $post_data = array('name' => $name);
         
-        if (! is_null($mode) {
+        if (! is_null($mode)) {
             $post_data['mode'] = $mode;
         }
-        if (! is_null($description) {
-            $post_data['description'] = description
+        if (! is_null($description)) {
+            $post_data['description'] = $description;
         }
 
         $json = $this->fetchUrl($url, 'POST', $post_data);
         $data = $this->parseAndCheckTwitter($json);
         
-        return List::newFromJsonArray($data);
+       // return List::newFromJsonArray($data);
     }
 
     public function destroyList(
@@ -1838,9 +1865,9 @@ class Api
             throw new Exception("Identify list by list_id or owner_screen_name/owner_id and slug");
         }
 
-        $json = $this->fetchUrl($url, 'POST', $data)
+        $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return List::newFromJsonArray($data);
+        //return List::newFromJsonArray($data);
     }
 
     public function createSubscription(
@@ -1882,10 +1909,10 @@ class Api
             throw new Exception("Identify list by list_id or owner_screen_name/owner_id and slug");
         }
 
-        $json = $this->fetchUrl($url, $data)
+        $json = $this->fetchUrl($url, $data);
         $data = $this->parseAndCheckTwitter($json);
 
-        return List::newFromJsonArray($data);
+        //return List::newFromJsonArray($data);
     }
     
     /**
@@ -1933,10 +1960,10 @@ class Api
             throw new Exception("Identify list by list_id or owner_screen_name/owner_id and slug");
         }
 
-        $json = $this->fetchUrl($url, 'POST', $data)
+        $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
 
-        return List::newFromJsonArray($data);
+        //return List::newFromJsonArray($data);
     }
 
     /**
@@ -1982,7 +2009,7 @@ class Api
         $data = $this->parseAndCheckTwitter($json);
 
         return array_map(function ($list) {
-            return List::newFromJsonArray($list);
+            //return List::newFromJsonArray($list);
         }, $data['lists']);
     }
 
@@ -2019,7 +2046,7 @@ class Api
             $data = $this->parseAndCheckTwitter($json);
             
             $result = array_merge($result, array_map(function ($list) {
-                return List::newFromJsonArray($list);
+                //return List::newFromJsonArray($list);
             }, $data['lists']));
             
             if (isset($data['next_cursor'])) {
@@ -2039,14 +2066,15 @@ class Api
     public function verifyCredentials()
     {
         if (! $this->_oauth_consumer) {
-            throw new Exception("Api instance must first be given user credentials.")
+            throw new Exception("Api instance must first be given user credentials.");
+        }
         $url = "{$this->base_url}/account/verify_credentials.json";
         
         try {
             $json = $this->fetchUrl(url, 'GET', array(), array('no_cache' => true));
-        } catch (SomeHttpLib\Exception as $e) {
+        } catch (SomeHttpLib\Exception $e) {
           
-            if $e->getCode() == SomeHttpLib::UNAUTHORIZED:
+            if ($e->getCode() == SomeHttpLib::UNAUTHORIZED) {
                 return null;
             } else {
                 throw $e;
@@ -2105,7 +2133,7 @@ class Api
      * @param string $url
      * @param string $version
      */
-    public function setXTwitterHeaders(client, url, version)
+    public function setXTwitterHeaders($client, $url, $version)
     {
         $this->request_headers['X-Twitter-Client'] = $client;
         $this->request_headers['X-Twitter-Client-URL'] = $url;
@@ -2201,7 +2229,12 @@ class Api
         // Add any additional path elements to the path
         if ($path_elements) {
             // Filter out the path elements that have a value of null
-            $p = [i for i in $path_elements if i];
+            $p = array();
+            foreach ($path_elements as $i) {
+                if ($i) {
+                    $p[] = $i;
+                }
+            }
 
             if (! $url_parts['path'].endswith('/')) {
                 $url_parts['path'] += '/';
@@ -2240,17 +2273,17 @@ class Api
         $this->setUserAgent($user_agent);
     }
 
-    protected initializeDefaultParameters()
+    protected function initializeDefaultParameters()
     {
         $this->default_params = array();
     }
 
-    protected decompressGzippedResponse($response)
+    protected function decompressGzippedResponse($response)
     {
         $raw_data = $response->getBody();
 
         if ($response->headers['content-encoding'] === 'gzip') {
-            return gzip.GzipFile(fileobj=StringIO.StringIO(raw_data)).read();
+            // return gzip.GzipFile(fileobj=StringIO.StringIO(raw_data)).read();
         }
 
         return $raw_data;
@@ -2261,14 +2294,14 @@ class Api
      */
     protected function encodeParameters($parameters)
     {
-        if (!empty($parameters) {
+        if (!empty($parameters)) {
             return null;
         }
 
         $utf8_params = array();
         foreach ($parameters as $key => $value) {
             if (is_null($value)) continue;
-            $utf8_params[$key] => utf8_encode($value);
+            $utf8_params[$key] = utf8_encode($value);
         }
 
         return http_build_query($utf8_params);
@@ -2285,7 +2318,7 @@ class Api
 
         $utf8_params = array();
         foreach ($post_data as $key => $value) {
-            $utf8_params[$key] => utf8_encode($value);
+            $utf8_params[$key] = utf8_encode($value);
         }
 
         return http_build_query($utf8_params);
@@ -2316,6 +2349,27 @@ class Api
         }
 
         return $data;
+    }
+
+    /**
+     * Builds a proper result from an array
+     * 
+     * @param array $data 
+     * @param callable $callable Should be a static newFromJsonArray method
+     * @return array
+     */
+    protected function buildResult(array $data, $callable, array $extra_params)
+    {
+        $result = array();
+        foreach ($data as $x) {
+            if (!empty($extra_params)) {
+                $params = array_merge(array($x), $extra_params);
+            } else {
+                $params = array($x);
+            }
+            $result[] = call_user_func_array($callable, $params);
+        }
+        return $result;
     }
 
     /**
