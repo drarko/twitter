@@ -2337,12 +2337,7 @@ class Api
         // Add any additional path elements to the path
         if ($path_elements) {
             // Filter out the path elements that have a value of null
-            $p = array();
-            foreach ($path_elements as $i) {
-                if ($i) {
-                    $p[] = $i;
-                }
-            }
+            $p = array_filter($path_elements);
 
             if (! $url_parts['path'].endswith('/')) {
                 $url_parts['path'] += '/';
