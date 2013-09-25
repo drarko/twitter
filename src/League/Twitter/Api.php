@@ -130,7 +130,7 @@ class Api
             $extra_params = array_merge($extra_params, $parameters);
         }
  
-        $client = $this->http_handler;
+        $client = $this->http_client;
 
         if ($http_method === 'GET') {
             $params = $this->encodeParameters($parameters);
