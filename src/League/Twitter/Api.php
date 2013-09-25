@@ -1,6 +1,7 @@
 <?php namespace League\Twitter;
 
 use Guzzle\Http\Client;
+use Guzzle\Plugin\Oauth\OauthPlugin;
 
 class Api
 {
@@ -39,8 +40,6 @@ class Api
         $debug_http = false
     ) {
         $this->setCacheHandler($cache);
-        
-        $this->setHttpHandler(new Client());
 
         $this->cache_timeout  = static::DEFAULT_CACHE_TIMEOUT;
         $this->use_gzip       = $use_gzip_compression;
@@ -57,6 +56,8 @@ class Api
         } else {
             $this->base_url = $base_url;
         }
+
+        $this->setHttpHandler(new Client($this->base_url));
 
         if (! is_null($consumer_key) and is_null($access_token_key) or is_null($access_token_secret)) {
             throw new Exception('Twitter requires OAuth Access Token for all API access');
@@ -89,12 +90,18 @@ class Api
         if (! is_null($consumer_key) and ! is_null($consumer_secret) and
             ! is_null($access_token_key) and ! is_null($access_token_secret)
         ) {
-            //$this->signature_method_plaintext = oauth.SignatureMethod_PLAINTEXT();
-            //$this->signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1();
-        }
 
-        //$this->oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
-        //$this->oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+            $oauth = new OauthPlugin(
+                array(
+                    'consumer_key' => $consumer_key,
+                    'consumer_secret' => $consumer_secret,
+                    'token' => $access_token_key,
+                    'token_secret' => $access_token_secret
+                )
+            );
+
+            $this->http_client->addSubscriber($oauth);
+        }
     }
 
 
