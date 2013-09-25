@@ -1931,8 +1931,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $post_data);
         $data = $this->parseAndCheckTwitter($json);
-        
-        // return List::newFromJsonArray($data);
+        return List::newFromJsonArray($data);
     }
 
     public function destroyList(
@@ -1971,7 +1970,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        //return List::newFromJsonArray($data);
+        return List::newFromJsonArray($data);
     }
 
     public function createSubscription(
@@ -2014,8 +2013,7 @@ class Api
 
         $json = $this->fetchUrl($url, $data);
         $data = $this->parseAndCheckTwitter($json);
-
-        //return List::newFromJsonArray($data);
+        return List::newFromJsonArray($data);
     }
     
     /**
@@ -2064,8 +2062,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-
-        //return List::newFromJsonArray($data);
+        return List::newFromJsonArray($data);
     }
 
     /**
@@ -2112,7 +2109,7 @@ class Api
 
         return array_map(
             function ($list) {
-                //return List::newFromJsonArray($list);
+                return List::newFromJsonArray($list);
             },
             $data['lists']
         );
@@ -2154,7 +2151,7 @@ class Api
                 $result,
                 array_map(
                     function ($list) {
-                        //return List::newFromJsonArray($list);
+                        return List::newFromJsonArray($list);
                     },
                     $data['lists']
                 )
