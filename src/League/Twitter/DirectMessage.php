@@ -68,17 +68,16 @@ class DirectMessage
     /**
      * Set the unique id of this direct message.
      *
-     * @return void
      */
     public function setId($id)
     {
-        return $this->id = $id;
+        $this->id = $id;
     }
 
     /**
      * Get the time this direct message was posted.
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -88,9 +87,9 @@ class DirectMessage
     /**
      * Set the time this direct message was posted.
      *
-     * @param DateTime $created_at 
+     * @param \DateTime $created_at
      */
-    public function setCreatedAt(DateTime $created_at)
+    public function setCreatedAt(\DateTime $created_at)
     {
         $this->created_at = $created_at;
     }
@@ -102,7 +101,7 @@ class DirectMessage
      */
     public function getCreatedAtInSeconds()
     {
-        $now = new DateTime();
+        $now = new \DateTime();
         return abs($now->getTimestamp() - $this->created_at->getTimestamp());
     }
 

@@ -18,7 +18,7 @@ class Status
     protected $id;
     protected $text;
     protected $location;
-    protected $relative_created_at # read only;
+    protected $relative_created_at; # read only;
     protected $user;
     protected $urls;
     protected $user_mentions;
@@ -162,7 +162,7 @@ class Status
      */
     public function setInReplyToScreenName($in_reply_to_screen_name)
     {
-        $this->in_reply_to_screen_name = in_reply_to_screen_name;
+        $this->in_reply_to_screen_name = $in_reply_to_screen_name;
     }
 
     /**
@@ -176,11 +176,11 @@ class Status
 
     /**
      * Set the user id of the original status that was replied to
-     * @param int $in_reply_to_user
+     * @param int $in_reply_to_user_id
      */
     public function setInReplyToUserId($in_reply_to_user_id)
     {
-        $this->in_reply_to_user_id = in_reply_to_user_id;
+        $this->in_reply_to_user_id = $in_reply_to_user_id;
     }
 
     /**
@@ -198,7 +198,7 @@ class Status
      */
     public function setInReplyToStatusId($in_reply_to_status_id)
     {
-        $this->in_reply_to_status_id = in_reply_to_status_id;
+        $this->in_reply_to_status_id = $in_reply_to_status_id;
     }
 
     /**
@@ -311,11 +311,11 @@ class Status
         } elseif ($delta < (60 * 60 * $fudge) || $delta / (60 * 60) == 1) {
             return 'about an hour ago';
         } elseif ($delta < (60 * 60 * 24 * (1/$fudge))) {
-	    return sprintf('about %d hours ago', ($delta / (60 * 60));
+	    return sprintf('about %d hours ago', ($delta / (60 * 60)));
         } elseif ($delta < (60 * 60 * 24 * $fudge) || $delta / (60 * 60 * 24) == 1) {
-            return 'about a day ago'
+            return 'about a day ago';
         } else {
-            return sprintf('about %d days ago', ($delta / (60 * 60 * 24));
+            return sprintf('about %d days ago', ($delta / (60 * 60 * 24)));
 	}
     }
 

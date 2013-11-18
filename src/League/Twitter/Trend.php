@@ -5,10 +5,10 @@
  */
 class Trend
 {
-     protected $name;
-     protected $query;
-     protected $timestamp;
-     protected $url;
+    protected $name;
+    protected $query;
+    protected $timestamp;
+    protected $url;
 
     /**
      * Constructor
@@ -29,7 +29,7 @@ class Trend
     /**
      * Magic method use to output the instance as a string, using formatted string
      *
-     * @return string 
+     * @return string
      */
     public function __toString()
     {
@@ -66,7 +66,7 @@ class Trend
         $name = (isset($data['name'])) ? $data['name'] : null;
         $query = (isset($data['query'])) ? $data['query'] : null;
         $url = (isset($data['url'])) ? $data['url'] : null;
-        $timestamp (isset($data['timestamp'])) ? $data['timestamp'] : null;
-        return new static($name, $query, $timestamp, $url); 
+        $timestamp = (isset($data['timestamp'])) ? $data['timestamp'] : null;
+        return new static($name, $query, $timestamp, $url);
     }
 }
