@@ -34,7 +34,8 @@ class User
     /**
      * Constructor
      */
-    public function __construct($data) {
+    public function __construct($data)
+    {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
         $this->screen_name = isset($data['screen_name']) ? $data['screen_name'] : null;
@@ -70,7 +71,7 @@ class User
      *
      * @param array $data
      *
-     * @return \League\Twitter\User 
+     * @return \League\Twitter\User
      */
     public static function newFromJsonArray($data)
     {
@@ -105,7 +106,7 @@ class User
     public function getName()
     {
         return $this->name;
-    } 
+    }
 
     /**
      * Set the name of the user to the specified value
@@ -115,7 +116,7 @@ class User
     public function setName($name)
     {
         $this->name = $name;
-    }    
+    }
 
     /**
      * Return the value of users screen name
@@ -133,7 +134,7 @@ class User
      * @param string $screen_name
      */
     public function setScreenName($screen_name)
-    { 
+    {
         $this->screen_name = $screen_name;
     }
 
@@ -432,9 +433,9 @@ class User
      *
      * @param int $friends_count
      */
-    public function setFriendsCount($count)
+    public function setFriendsCount($friends_count)
     {
-        $this->friends_count = $count;
+        $this->friends_count = $friends_count;
     }
 
     /**
@@ -512,7 +513,7 @@ class User
      *
      * @param int $favourites_count
      */
-    public function setFavouritesCount($count)
+    public function setFavouritesCount($favourites_count)
     {
         $this->favourites_count = $favourites_count;
     }
@@ -528,7 +529,7 @@ class User
 
     /**
      * Set Geo Enabled flag to provided value
-     * @param bool $favourites_count
+     * @param bool $geo_enabled
      */
     public function setGeoEnabled($geo_enabled)
     {
@@ -564,7 +565,7 @@ class User
 
     /**
      * Set language to specified value
-     * @param string $language
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -624,10 +625,11 @@ class User
     {
         $this->created_at = $created_at;
     }
-    
+
     /**
      * Comparison to see if the provided object equals the current instance
      * @param \League\Twitter\User $other
+     * @return bool
      */
     public function isEqual($other)
     {
@@ -686,8 +688,8 @@ class User
         if ($this->profile_sidebar_fill_color !== null) {
             $data['profile_sidebar_fill_color'] = $this->profile_sidebar_fill_color;
         }
-        if ($this->background_color !== null) {
-            $data['background_color'] = $this->background_color;
+        if ($this->profile_background_color !== null) {
+            $data['profile_background_color'] = $this->profile_background_color;
         }
         if ($this->profile_link_color !== null) {
             $data['profile_link_color'] = $this->profile_link_color;
