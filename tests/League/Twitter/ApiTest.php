@@ -8,7 +8,12 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->api = new Api();
+        $this->api = new Api(
+            'key',
+            'secret',
+            'token',
+            'tokensecret'
+        );
     }
 
     public function testCanCreateApi()
