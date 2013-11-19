@@ -13,7 +13,7 @@ class HashTag
     /**
      * Create a new instance based on a JSON dict.
      *
-     * @param array data Array containing the JSON data from the twitter API
+     * @param array $data Array containing the JSON data from the twitter API
      *
      * @return \League\Twitter\HashTag
      */
