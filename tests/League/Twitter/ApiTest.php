@@ -4,20 +4,28 @@ namespace League\Twitter;
 
 class ApiTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Api
+     */
     private $api;
 
     public function setUp()
     {
         $this->api = new Api(
-            'key',
-            'secret',
-            'token',
-            'tokensecret'
+            '-',
+            '-',
+            '---',
+            '-'
         );
     }
 
     public function testCanCreateApi()
     {
         $this->assertInstanceOf('League\Twitter\Api', $this->api);
+    }
+
+    public function testGetSearchLeague()
+    {
+        $result = $this->api->getSearch('League');
     }
 }

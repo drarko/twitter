@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace League\Twitter;
 
 /**
@@ -42,7 +42,8 @@ class Status
         $this->location = isset($data['location']) ? $data['location'] : null;
         $this->user = isset($data['user']) ? $data['user'] : null;
         $this->now = isset($data['now']) ? $data['now'] : null;
-        $this->in_reply_to_screen_name = isset($data['in_reply_to_screen_name']) ? $data['in_reply_to_screen_name'] : null;
+        $this->in_reply_to_screen_name = isset($data['in_reply_to_screen_name'])
+            ? $data['in_reply_to_screen_name'] : null;
         $this->in_reply_to_user_id = isset($data['in_reply_to_user_id']) ? $data['in_reply_to_user_id'] : null;
         $this->in_reply_to_status_id = isset($data['in_reply_to_status_id']) ? $data['in_reply_to_status_id'] : null;
         $this->truncated = isset($data['truncated']) ? $data['truncated'] : null;
@@ -65,10 +66,10 @@ class Status
         $this->withheld_in_countries = isset($data['withheld_in_countries']) ? $data['withheld_in_countries'] : null;
         $this->withheld_scope = isset($data['withheld_scope']) ? $data['withheld_scope'] : null;
     }
-    
+
     /**
      * Get the time this status message was posted.
-     * @return $get_created_at 
+     * @return $get_created_at
      */
     public function getCreatedAt()
     {
@@ -86,7 +87,7 @@ class Status
 
     /**
      * Get the time this status message was posted, in seconds since the epoch
-     * @return int 
+     * @return int
      */
     public function getCreatedAtInSeconds()
     {
@@ -94,7 +95,7 @@ class Status
     }
 
     /**
-     * Get the favorited setting of this status message. 
+     * Get the favorited setting of this status message.
      * @return boolean
      */
     public function getFavorited()
@@ -103,7 +104,7 @@ class Status
     }
 
     /**
-     * Set the favorited state of this status message. 
+     * Set the favorited state of this status message.
      * @param boolean $favorited
      */
     public function setFavorited($favorited)
@@ -298,25 +299,25 @@ class Status
     public function getRelativeCreatedAt()
     {
         $fudge = 1.25;
-        $delta  = $this->now - $this->created_at_in_seconds;
+        $delta = $this->now - $this->created_at_in_seconds;
 
-        if($delta < (1 * $fudge)) {
+        if ($delta < (1 * $fudge)) {
             return 'about a second ago';
-        } elseif ($delta < (60 * (1/$fudge))) {
-            return sprintf('about %d seconds ago', $delta); 
+        } elseif ($delta < (60 * (1 / $fudge))) {
+            return sprintf('about %d seconds ago', $delta);
         } elseif ($delta < (60 * $fudge)) {
             return 'about a minute ago';
-        } elseif ($delta < (60 * 60 * (1/$fudge))) {
+        } elseif ($delta < (60 * 60 * (1 / $fudge))) {
             return sprintf('about %d minutes ago', ($delta / 60));
         } elseif ($delta < (60 * 60 * $fudge) || $delta / (60 * 60) == 1) {
             return 'about an hour ago';
-        } elseif ($delta < (60 * 60 * 24 * (1/$fudge))) {
-	    return sprintf('about %d hours ago', ($delta / (60 * 60)));
+        } elseif ($delta < (60 * 60 * 24 * (1 / $fudge))) {
+            return sprintf('about %d hours ago', ($delta / (60 * 60)));
         } elseif ($delta < (60 * 60 * 24 * $fudge) || $delta / (60 * 60 * 24) == 1) {
             return 'about a day ago';
         } else {
             return sprintf('about %d days ago', ($delta / (60 * 60 * 24)));
-	}
+        }
     }
 
     /**
@@ -343,9 +344,9 @@ class Status
      */
     public function getNow()
     {
-        if($this->now === null) {
+        if ($this->now === null) {
             $this->now = time();
-	}
+        }
         return $this->now;
     }
 
@@ -599,93 +600,102 @@ class Status
     public function toArray()
     {
         $data = array();
-        if($this->created_at !== null) {
+        if ($this->created_at !== null) {
             $data['created_at'] = $this->created_at;
         }
-        if($this->favorited !== null) {
+        if ($this->favorited !== null) {
             $data['favorited'] = $this->favorited;
         }
-        if($this->favorite_count !== null) {
+        if ($this->favorite_count !== null) {
             $data['favorite_count'] = $this->favorite_count;
         }
-        if($this->id !== null) {
+        if ($this->id !== null) {
             $data['id'] = $this->id;
         }
-        if($this->text !== null) {
+        if ($this->text !== null) {
             $data['text'] = $this->text;
         }
-        if($this->location !== null) {
+        if ($this->location !== null) {
             $data['location'] = $this->location;
         }
-        if($this->user !== null) {
-            $data['user'] = $this->user.AsDict( !== null);
+        if ($this->user !== null) {
+            $data['user'] = $this->user;
         }
-        if($this->in_reply_to_screen_name !== null) {
+        if ($this->in_reply_to_screen_name !== null) {
             $data['in_reply_to_screen_name'] = $this->in_reply_to_screen_name;
         }
-        if($this->in_reply_to_user_id !== null) {
+        if ($this->in_reply_to_user_id !== null) {
             $data['in_reply_to_user_id'] = $this->in_reply_to_user_id;
         }
-        if($this->in_reply_to_status_id !== null) {
+        if ($this->in_reply_to_status_id !== null) {
             $data['in_reply_to_status_id'] = $this->in_reply_to_status_id;
         }
-        if($this->truncated !== null) {
+        if ($this->truncated !== null) {
             $data['truncated'] = $this->truncated;
         }
-        if($this->retweeted !== null) {
+        if ($this->retweeted !== null) {
             $data['retweeted'] = $this->retweeted;
         }
-        if($this->favorited !== null) {
+        if ($this->favorited !== null) {
             $data['favorited'] = $this->favorited;
         }
-        if($this->source !== null) {
+        if ($this->source !== null) {
             $data['source'] = $this->source;
         }
-        if($this->geo !== null) {
+        if ($this->geo !== null) {
             $data['geo'] = $this->geo;
         }
-        if($this->place !== null) {
+        if ($this->place !== null) {
             $data['place'] = $this->place;
         }
-        if($this->coordinates !== null) {
+        if ($this->coordinates !== null) {
             $data['coordinates'] = $this->coordinates;
         }
-        if($this->contributors !== null) {
+        if ($this->contributors !== null) {
             $data['contributors'] = $this->contributors;
         }
-        if($this->hashtags !== null) {
-            $data['hashtags'] = [h.text for h in $this->hashtags];
+        if ($this->hashtags !== null) {
+            $data['hashtags'] = $this->hashtags;
         }
-        if($this->retweeted_status !== null) {
-            $data['retweeted_status'] = $this->retweeted_status->AsDict();
+        if ($this->retweeted_status !== null) {
+            $data['retweeted_status'] = $this->retweeted_status;
         }
-        if($this->retweet_count !== null) {
+        if ($this->retweet_count !== null) {
             $data['retweet_count'] = $this->retweet_count;
         }
-        if($this->urls !== null) {
-            $data['urls'] = dict([(url.url, url.expanded_url) for url in $this->urls]);
+        if ($this->urls !== null) {
+            $data['urls'] = $this->urls;
         }
-        if($this->user_mentions !== null) {
-            $data['user_mentions'] = [um.AsDict() for um in $this->user_mentions];
+        if ($this->user_mentions !== null) {
+            $data['user_mentions'] = $this->user_mentions;
         }
-        if($this->current_user_retweet !== null) {
+        if ($this->current_user_retweet !== null) {
             $data['current_user_retweet'] = $this->current_user_retweet;
         }
-        if($this->possibly_sensitive !== null) {
+        if ($this->possibly_sensitive !== null) {
             $data['possibly_sensitive'] = $this->possibly_sensitive;
         }
-        if($this->scopes !== null) {
+        if ($this->scopes !== null) {
             $data['scopes'] = $this->scopes;
         }
-        if($this->withheld_copyright !== null) {
+        if ($this->withheld_copyright !== null) {
             $data['withheld_copyright'] = $this->withheld_copyright;
         }
-        if($this->withheld_in_countries !== null) {
+        if ($this->withheld_in_countries !== null) {
             $data['withheld_in_countries'] = $this->withheld_in_countries;
         }
-        if($this->withheld_scope !== null) {
+        if ($this->withheld_scope !== null) {
             $data['withheld_scope'] = $this->withheld_scope;
         }
         return $data;
+    }
+
+    public static function newFromJsonArray($jsonArray)
+    {
+        $status = array();
+        foreach ($jsonArray as $jsonStatus) {
+            $status[] = new Status($jsonStatus);
+        }
+        return $status;
     }
 }

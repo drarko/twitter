@@ -10,7 +10,7 @@ class Api
     const DEFAULT_CACHE_TIMEOUT = 60;
 
     const API_REALM = 'Twitter API';
-
+    const BASE_URL = 'https://api.twitter.com/1.1';
     const CHARACTER_LIMIT = 140;
 
     protected $version = "0.1";
@@ -28,6 +28,15 @@ class Api
 
     protected $signature_method_plaintext;
     protected $signature_method_hmac_sha1;
+
+    protected $request_headers;
+    protected $default_params;
+    protected $base_url;
+
+    /**
+     * @var Client
+     */
+    protected $http_client;
 
     /**
      * @param null|string $consumer_key
@@ -56,8 +65,8 @@ class Api
         $debug_http = false
     ) {
         $this->setCacheHandler($cache);
+        $this->setCacheTimeout(self::DEFAULT_CACHE_TIMEOUT);
 
-        $this->cache_timeout = static::DEFAULT_CACHE_TIMEOUT;
         $this->use_gzip = $use_gzip_compression;
         $this->debug_http = $debug_http;
         $this->oauth_consumer = null;
@@ -67,18 +76,13 @@ class Api
         $this->initializeUserAgent();
         $this->initializeDefaultParameters();
 
-        if (is_null($base_url)) {
-            $this->base_url = 'https://api.twitter.com/1.1';
-        } else {
-            $this->base_url = $base_url;
-        }
+        $this->base_url = (is_null($base_url)) ? static::BASE_URL : $base_url;
 
         $this->setHttpHandler(new Client($this->base_url));
 
-        if (!is_null($consumer_key) and is_null($access_token_key) or is_null($access_token_secret)) {
+        if (!is_null($consumer_key) && is_null($access_token_key) || is_null($access_token_secret)) {
             throw new \Exception('Twitter requires OAuth Access Token for all API access');
         }
-
         $this->setCredentials($consumer_key, $consumer_secret, $access_token_key, $access_token_secret);
     }
 
@@ -114,7 +118,6 @@ class Api
                     'token_secret' => $access_token_secret
                 )
             );
-
             $this->http_client->addSubscriber($oauth);
         }
     }
@@ -246,13 +249,13 @@ class Api
 
         // Make and send requests
         $url = "{$this->base_url}/search/tweets.json";
-        $json = $this->fetchUrl($url, $parameters);
+        $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
 
         // Build and return a list of statuses
         $result = array_map(
             function ($x) {
-                return Status::newFromJsonArray($x);
+                return new Status($x);
             },
             $data['statuses']
         );
@@ -2421,7 +2424,7 @@ class Api
 
     protected function initializeRequestHeaders($request_headers)
     {
-        if ($request_headers) {
+        if (!empty($request_headers)) {
             $this->request_headers = $request_headers;
         } else {
             $this->request_headers = array();
@@ -2455,7 +2458,7 @@ class Api
      */
     protected function encodeParameters($parameters)
     {
-        if (!empty($parameters)) {
+        if (empty($parameters)) {
             return null;
         }
 
@@ -2496,7 +2499,7 @@ class Api
     protected function parseAndCheckTwitter($json)
     {
         try {
-            $data = json_decode($json);
+            $data = json_decode($json, true);
             $this->checkForTwitterError($data);
         } catch (Exception $e) {
             if (strpos($json, '<title>Twitter / Over capacity</title>')) {
