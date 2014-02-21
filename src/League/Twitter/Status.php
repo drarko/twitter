@@ -32,7 +32,7 @@ class Status
      * Constructor - An object to hold a Twitter status message.
      * @param Array $data An array of all the status properties
      */
-    public function __construct(Array $data)
+    public function __construct(array $data)
     {
         $this->created_at = isset($data['created_at']) ? $data['created_at'] : null;
         $this->favorited = isset($data['favorited']) ? $data['favorited'] : null;

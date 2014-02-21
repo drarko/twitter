@@ -129,7 +129,6 @@ class Api
      * @param string $url
      * @param string $http_method
      * @param array $parameters
-     * @param array $options
      *
      * @throws \Exception
      * @return string
@@ -137,16 +136,12 @@ class Api
     protected function fetchUrl(
         $url,
         $http_method = 'GET',
-        array $parameters = null,
-        $options = array()
+        array $parameters = null
     ) {
-        $no_cache = isset($options['no_cache']) ? $options['no_cache'] : null;
-        $use_gzip_compression = isset($options['use_gzip_compression']) ? $options['use_gzip_compression'] : null;
-
         $extra_params = $this->default_params;
 
         if ($parameters) {
-            $extra_params = array_merge($extra_params, $parameters);
+            $parameters = array_merge($extra_params, $parameters);
         }
 
         $client = $this->http_client;
@@ -214,10 +209,10 @@ class Api
         $parameters = array();
 
         if ($since_id) {
-            $parameters['since_id'] = (int)$since_id;
+            $parameters['since_id'] = $since_id;
         }
         if ($max_id) {
-            $parameters['max_id'] = (int)$max_id;
+            $parameters['max_id'] = $max_id;
         }
         if ($until) {
             $parameters['until'] = $until;

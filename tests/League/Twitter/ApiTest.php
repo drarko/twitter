@@ -11,12 +11,16 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->api = new Api(
-            '-',
-            '-',
-            '---',
-            '-'
-        );
+        $this->api = new Api('-', '-', '-', '-');
+    }
+
+    private function mockHttpRequest($returnJson)
+    {
+        $mockHttpClient = $this->getMock('Guzzle\Http\Client', array('send'));
+        $mockHttpResponse = $this->getMock('Guzzle\Http\Message\Request', array('getBody'), array(), '', false);
+        $mockHttpClient->expects($this->any())->method('send')->will($this->returnValue($mockHttpResponse));
+        $mockHttpResponse->expects($this->any())->method('getBody')->will($this->returnValue($returnJson));
+        $this->api->setHttpHandler($mockHttpClient);
     }
 
     public function testCanCreateApi()
@@ -24,8 +28,10 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('League\Twitter\Api', $this->api);
     }
 
-    public function testGetSearchLeague()
+    public function testGetSearchPHPLeague()
     {
-        $result = $this->api->getSearch('League');
+        $this->mockHttpRequest('{"statuses": []}');
+        $result = $this->api->getSearch('thephpleague');
+        $this->assertEmpty($result);
     }
 }
