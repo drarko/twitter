@@ -1,0 +1,1765 @@
+{"statuses": [
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Fri Feb 21 03:03:41 +0000 2014",
+        "id": 436697706640064512,
+        "id_str": "436697706640064512",
+        "text": "@beausimensen @thephpleague O! An updated bootstrap too. Cool.",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/software\/tweetbot\/mac\" rel=\"nofollow\"\u003eTweetbot for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436697445880172544,
+        "in_reply_to_status_id_str": "436697445880172544",
+        "in_reply_to_user_id": 7566122,
+        "in_reply_to_user_id_str": "7566122",
+        "in_reply_to_screen_name": "beausimensen",
+        "user": {
+            "id": 14336120,
+            "id_str": "14336120",
+            "name": "emma jane",
+            "screen_name": "emmajanehw",
+            "location": "Owen Sound, Ontario, Canada",
+            "description": "Beekeeper, open source nerd, author, Scotch drinker, crafty advocate, opera newb, and small town champion.",
+            "url": "http:\/\/t.co\/2oTl8SIUuC",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/2oTl8SIUuC",
+                            "expanded_url": "http:\/\/www.emmajane.net",
+                            "display_url": "emmajane.net",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 3328,
+            "friends_count": 258,
+            "listed_count": 388,
+            "created_at": "Tue Apr 08 21:04:13 +0000 2008",
+            "favourites_count": 1763,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 18905,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "A38B2A",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/690900312\/ec72d6b3e2ae2ae6b303868d848dbdac.jpeg",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/690900312\/ec72d6b3e2ae2ae6b303868d848dbdac.jpeg",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/378800000426880677\/dc5cac24551043e8e00764bca51c66c7_normal.jpeg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/378800000426880677\/dc5cac24551043e8e00764bca51c66c7_normal.jpeg",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/14336120\/1378609211",
+            "profile_link_color": "B30E0E",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "E0FF92",
+            "profile_text_color": "000000",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "beausimensen",
+                    "name": "Beau D. Simensen",
+                    "id": 7566122,
+                    "id_str": "7566122",
+                    "indices": [0, 13]
+                },
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [14, 27]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Fri Feb 21 03:02:39 +0000 2014",
+        "id": 436697445880172544,
+        "id_str": "436697445880172544",
+        "text": "@emmajanehw here is the pr https:\/\/t.co\/I2L3utvpmN @thephpleague was the thing driving the theme stuff; a few league projects using it now.",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/tweetbot\" rel=\"nofollow\"\u003eTweetbot for iOS\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436670368988663808,
+        "in_reply_to_status_id_str": "436670368988663808",
+        "in_reply_to_user_id": 14336120,
+        "in_reply_to_user_id_str": "14336120",
+        "in_reply_to_screen_name": "emmajanehw",
+        "user": {
+            "id": 7566122,
+            "id_str": "7566122",
+            "name": "Beau D. Simensen",
+            "screen_name": "beausimensen",
+            "location": "Madison, WI",
+            "description": "I write code. I like visual arts and music. @dflydev @reflxlabs @wearboogio @offloc @srcmvn @getsculpin @phpfig https:\/\/t.co\/r5Lm39wyPg https:\/\/t.co\/ZSdP6HBuWn",
+            "url": "https:\/\/t.co\/XpxJAdxayi",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https:\/\/t.co\/XpxJAdxayi",
+                            "expanded_url": "https:\/\/beau.io",
+                            "display_url": "beau.io",
+                            "indices": [0, 23]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": [
+                        {
+                            "url": "https:\/\/t.co\/r5Lm39wyPg",
+                            "expanded_url": "https:\/\/github.com\/simensen",
+                            "display_url": "github.com\/simensen",
+                            "indices": [112, 135]
+                        },
+                        {
+                            "url": "https:\/\/t.co\/ZSdP6HBuWn",
+                            "expanded_url": "https:\/\/sculpin.io",
+                            "display_url": "sculpin.io",
+                            "indices": [136, 159]
+                        }
+                    ]
+                }
+            },
+            "protected": false,
+            "followers_count": 761,
+            "friends_count": 559,
+            "listed_count": 62,
+            "created_at": "Wed Jul 18 18:05:07 +0000 2007",
+            "favourites_count": 54,
+            "utc_offset": -28800,
+            "time_zone": "Pacific Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 5261,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "1A1B1F",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/3723687711\/bdc39020d7351017241c9e014412699b_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/3723687711\/bdc39020d7351017241c9e014412699b_normal.png",
+            "profile_link_color": "196C86",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "252429",
+            "profile_text_color": "666666",
+            "profile_use_background_image": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": {
+            "id": "93e191cd736864c0",
+            "url": "https:\/\/api.twitter.com\/1.1\/geo\/id\/93e191cd736864c0.json",
+            "place_type": "city",
+            "name": "Madison",
+            "full_name": "Madison, WI",
+            "country_code": "US",
+            "country": "United States",
+            "contained_within": [],
+            "bounding_box": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [-89.566389, 42.998071],
+                        [-89.246452, 42.998071],
+                        [-89.246452, 43.17023],
+                        [-89.566389, 43.17023]
+                    ]
+                ]
+            },
+            "attributes": {}
+        },
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "https:\/\/t.co\/I2L3utvpmN",
+                    "expanded_url": "https:\/\/github.com\/sculpin\/sculpin-blog-skeleton\/pull\/16",
+                    "display_url": "github.com\/sculpin\/sculpi\u2026",
+                    "indices": [27, 50]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "emmajanehw",
+                    "name": "emma jane",
+                    "id": 14336120,
+                    "id_str": "14336120",
+                    "indices": [0, 11]
+                },
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [51, 64]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 21:06:23 +0000 2014",
+        "id": 436607791563046913,
+        "id_str": "436607791563046913",
+        "text": "@thephpleague Is there no way to pass in an already created instance set to a variable via bind? or am i missing something?",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/software\/tweetbot\/mac\" rel=\"nofollow\"\u003eTw\u0435\u0435tbot for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436605551297179649,
+        "in_reply_to_status_id_str": "436605551297179649",
+        "in_reply_to_user_id": 2201822384,
+        "in_reply_to_user_id_str": "2201822384",
+        "in_reply_to_screen_name": "thephpleague",
+        "user": {
+            "id": 16231015,
+            "id_str": "16231015",
+            "name": "Clark Tomlinson",
+            "screen_name": "th3fallen",
+            "location": "US",
+            "description": "Insert clever bio here",
+            "url": "http:\/\/t.co\/teprNtA8bm",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/teprNtA8bm",
+                            "expanded_url": "http:\/\/www.clarkt.com",
+                            "display_url": "clarkt.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 62,
+            "friends_count": 174,
+            "listed_count": 2,
+            "created_at": "Thu Sep 11 00:38:59 +0000 2008",
+            "favourites_count": 206,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1059,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [0, 13]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:57:29 +0000 2014",
+        "id": 436605551297179649,
+        "id_str": "436605551297179649",
+        "text": "@th3fallen glad we could help, have fun!",
+        "source": "\u003ca href=\"http:\/\/twitter.com\/download\/iphone\" rel=\"nofollow\"\u003eTwitter for iPhone\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436605367079157761,
+        "in_reply_to_status_id_str": "436605367079157761",
+        "in_reply_to_user_id": 16231015,
+        "in_reply_to_user_id_str": "16231015",
+        "in_reply_to_screen_name": "th3fallen",
+        "user": {
+            "id": 2201822384,
+            "id_str": "2201822384",
+            "name": "The PHP League",
+            "screen_name": "thephpleague",
+            "location": "",
+            "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                            "expanded_url": "http:\/\/thephpleague.com",
+                            "display_url": "thephpleague.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 770,
+            "friends_count": 45,
+            "listed_count": 19,
+            "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+            "favourites_count": 4,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 24,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "6ABCDD",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+            "profile_link_color": "FF4043",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": true,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "th3fallen",
+                    "name": "Clark Tomlinson",
+                    "id": 16231015,
+                    "id_str": "16231015",
+                    "indices": [0, 10]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:56:45 +0000 2014",
+        "id": 436605367079157761,
+        "id_str": "436605367079157761",
+        "text": "@thephpleague Well of course you have one... Awesome thanks thats actually really close to what i was looking for all friggin day.",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/software\/tweetbot\/mac\" rel=\"nofollow\"\u003eTw\u0435\u0435tbot for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436605159276576769,
+        "in_reply_to_status_id_str": "436605159276576769",
+        "in_reply_to_user_id": 2201822384,
+        "in_reply_to_user_id_str": "2201822384",
+        "in_reply_to_screen_name": "thephpleague",
+        "user": {
+            "id": 16231015,
+            "id_str": "16231015",
+            "name": "Clark Tomlinson",
+            "screen_name": "th3fallen",
+            "location": "US",
+            "description": "Insert clever bio here",
+            "url": "http:\/\/t.co\/teprNtA8bm",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/teprNtA8bm",
+                            "expanded_url": "http:\/\/www.clarkt.com",
+                            "display_url": "clarkt.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 62,
+            "friends_count": 174,
+            "listed_count": 2,
+            "created_at": "Thu Sep 11 00:38:59 +0000 2008",
+            "favourites_count": 206,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1059,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [0, 13]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:55:56 +0000 2014",
+        "id": 436605159276576769,
+        "id_str": "436605159276576769",
+        "text": "@th3fallen you might want to take a look at https:\/\/t.co\/Ijmwf09F3w",
+        "source": "\u003ca href=\"http:\/\/twitter.com\/download\/iphone\" rel=\"nofollow\"\u003eTwitter for iPhone\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436604693335506946,
+        "in_reply_to_status_id_str": "436604693335506946",
+        "in_reply_to_user_id": 16231015,
+        "in_reply_to_user_id_str": "16231015",
+        "in_reply_to_screen_name": "th3fallen",
+        "user": {
+            "id": 2201822384,
+            "id_str": "2201822384",
+            "name": "The PHP League",
+            "screen_name": "thephpleague",
+            "location": "",
+            "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                            "expanded_url": "http:\/\/thephpleague.com",
+                            "display_url": "thephpleague.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 770,
+            "friends_count": 45,
+            "listed_count": 19,
+            "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+            "favourites_count": 4,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 24,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "6ABCDD",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+            "profile_link_color": "FF4043",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": true,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "https:\/\/t.co\/Ijmwf09F3w",
+                    "expanded_url": "https:\/\/github.com\/thephpleague\/di",
+                    "display_url": "github.com\/thephpleague\/di",
+                    "indices": [44, 67]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "th3fallen",
+                    "name": "Clark Tomlinson",
+                    "id": 16231015,
+                    "id_str": "16231015",
+                    "indices": [0, 10]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:54:05 +0000 2014",
+        "id": 436604693335506946,
+        "id_str": "436604693335506946",
+        "text": "@thephpleague Still nothing for me. Also while i\u2019ve got you. Do you have a suggestion for a good DI\/IOC container library?",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/software\/tweetbot\/mac\" rel=\"nofollow\"\u003eTw\u0435\u0435tbot for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436604231064518657,
+        "in_reply_to_status_id_str": "436604231064518657",
+        "in_reply_to_user_id": 2201822384,
+        "in_reply_to_user_id_str": "2201822384",
+        "in_reply_to_screen_name": "thephpleague",
+        "user": {
+            "id": 16231015,
+            "id_str": "16231015",
+            "name": "Clark Tomlinson",
+            "screen_name": "th3fallen",
+            "location": "US",
+            "description": "Insert clever bio here",
+            "url": "http:\/\/t.co\/teprNtA8bm",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/teprNtA8bm",
+                            "expanded_url": "http:\/\/www.clarkt.com",
+                            "display_url": "clarkt.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 62,
+            "friends_count": 174,
+            "listed_count": 2,
+            "created_at": "Thu Sep 11 00:38:59 +0000 2008",
+            "favourites_count": 206,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1059,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [0, 13]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:52:15 +0000 2014",
+        "id": 436604231064518657,
+        "id_str": "436604231064518657",
+        "text": "@th3fallen seems to be up again now. It's hosted on GitHub so might be a glitch there. Thanks for the heads up though!",
+        "source": "\u003ca href=\"http:\/\/twitter.com\/download\/iphone\" rel=\"nofollow\"\u003eTwitter for iPhone\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436600061091667968,
+        "in_reply_to_status_id_str": "436600061091667968",
+        "in_reply_to_user_id": 16231015,
+        "in_reply_to_user_id_str": "16231015",
+        "in_reply_to_screen_name": "th3fallen",
+        "user": {
+            "id": 2201822384,
+            "id_str": "2201822384",
+            "name": "The PHP League",
+            "screen_name": "thephpleague",
+            "location": "",
+            "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                            "expanded_url": "http:\/\/thephpleague.com",
+                            "display_url": "thephpleague.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 770,
+            "friends_count": 45,
+            "listed_count": 19,
+            "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+            "favourites_count": 4,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 24,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "6ABCDD",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+            "profile_link_color": "FF4043",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": true,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "th3fallen",
+                    "name": "Clark Tomlinson",
+                    "id": 16231015,
+                    "id_str": "16231015",
+                    "indices": [0, 10]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:35:40 +0000 2014",
+        "id": 436600061091667968,
+        "id_str": "436600061091667968",
+        "text": "@thephpleague You guys know your site is down right?",
+        "source": "\u003ca href=\"http:\/\/tapbots.com\/software\/tweetbot\/mac\" rel=\"nofollow\"\u003eTw\u0435\u0435tbot for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": 2201822384,
+        "in_reply_to_user_id_str": "2201822384",
+        "in_reply_to_screen_name": "thephpleague",
+        "user": {
+            "id": 16231015,
+            "id_str": "16231015",
+            "name": "Clark Tomlinson",
+            "screen_name": "th3fallen",
+            "location": "US",
+            "description": "Insert clever bio here",
+            "url": "http:\/\/t.co\/teprNtA8bm",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/teprNtA8bm",
+                            "expanded_url": "http:\/\/www.clarkt.com",
+                            "display_url": "clarkt.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 62,
+            "friends_count": 174,
+            "listed_count": 2,
+            "created_at": "Thu Sep 11 00:38:59 +0000 2008",
+            "favourites_count": 206,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1059,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme14\/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1901062993\/avatar_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [0, 13]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:23:23 +0000 2014",
+        "id": 436596968593170432,
+        "id_str": "436596968593170432",
+        "text": "RT @thephpleague: Plates v1.2.1 was just released with a couple handy new features: https:\/\/t.co\/aSeIcKecS7. Full documentation at http:\/\/t\u2026",
+        "source": "web",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 17598719,
+            "id_str": "17598719",
+            "name": "Jonathan Reinink",
+            "screen_name": "reinink",
+            "location": "Ontario, Canada",
+            "description": "Front and backend web developer. PHP superfan. Digs coding standards. Advocate of good design, particularly in open source. Creator of http:\/\/t.co\/t8T5So5Voq.",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/t8T5So5Voq",
+                            "expanded_url": "http:\/\/platesphp.com",
+                            "display_url": "platesphp.com",
+                            "indices": [135, 157]
+                        }
+                    ]
+                }
+            },
+            "protected": false,
+            "followers_count": 222,
+            "friends_count": 409,
+            "listed_count": 17,
+            "created_at": "Mon Nov 24 19:20:21 +0000 2008",
+            "favourites_count": 15,
+            "utc_offset": -18000,
+            "time_zone": "Eastern Time (US & Canada)",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 2905,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "3F7A51",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000173300383\/HuUwEOIX.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000173300383\/HuUwEOIX.png",
+            "profile_background_tile": true,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/378800000726991828\/e0e4166d6b8afb142ac11b5201d31eb6_normal.jpeg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/378800000726991828\/e0e4166d6b8afb142ac11b5201d31eb6_normal.jpeg",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/17598719\/1390496302",
+            "profile_link_color": "82A352",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "metadata": {
+                "result_type": "recent",
+                "iso_language_code": "en"
+            },
+            "created_at": "Thu Feb 20 20:12:07 +0000 2014",
+            "id": 436594132127985664,
+            "id_str": "436594132127985664",
+            "text": "Plates v1.2.1 was just released with a couple handy new features: https:\/\/t.co\/aSeIcKecS7. Full documentation at http:\/\/t.co\/8XKCYUxnTX.",
+            "source": "web",
+            "truncated": false,
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "user": {
+                "id": 2201822384,
+                "id_str": "2201822384",
+                "name": "The PHP League",
+                "screen_name": "thephpleague",
+                "location": "",
+                "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+                "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                "entities": {
+                    "url": {
+                        "urls": [
+                            {
+                                "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                                "expanded_url": "http:\/\/thephpleague.com",
+                                "display_url": "thephpleague.com",
+                                "indices": [0, 22]
+                            }
+                        ]
+                    },
+                    "description": {
+                        "urls": []
+                    }
+                },
+                "protected": false,
+                "followers_count": 770,
+                "friends_count": 45,
+                "listed_count": 19,
+                "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+                "favourites_count": 4,
+                "utc_offset": null,
+                "time_zone": null,
+                "geo_enabled": false,
+                "verified": false,
+                "statuses_count": 24,
+                "lang": "en",
+                "contributors_enabled": false,
+                "is_translator": false,
+                "is_translation_enabled": false,
+                "profile_background_color": "6ABCDD",
+                "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+                "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+                "profile_background_tile": false,
+                "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+                "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+                "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+                "profile_link_color": "FF4043",
+                "profile_sidebar_border_color": "000000",
+                "profile_sidebar_fill_color": "DDEEF6",
+                "profile_text_color": "333333",
+                "profile_use_background_image": true,
+                "default_profile": false,
+                "default_profile_image": false,
+                "following": true,
+                "follow_request_sent": false,
+                "notifications": false
+            },
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "retweet_count": 1,
+            "favorite_count": 4,
+            "entities": {
+                "hashtags": [],
+                "symbols": [],
+                "urls": [
+                    {
+                        "url": "https:\/\/t.co\/aSeIcKecS7",
+                        "expanded_url": "https:\/\/github.com\/thephpleague\/plates\/releases\/tag\/1.2.1",
+                        "display_url": "github.com\/thephpleague\/p\u2026",
+                        "indices": [66, 89]
+                    },
+                    {
+                        "url": "http:\/\/t.co\/8XKCYUxnTX",
+                        "expanded_url": "http:\/\/platesphp.com",
+                        "display_url": "platesphp.com",
+                        "indices": [113, 135]
+                    }
+                ],
+                "user_mentions": []
+            },
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "en"
+        },
+        "retweet_count": 1,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "https:\/\/t.co\/aSeIcKecS7",
+                    "expanded_url": "https:\/\/github.com\/thephpleague\/plates\/releases\/tag\/1.2.1",
+                    "display_url": "github.com\/thephpleague\/p\u2026",
+                    "indices": [84, 107]
+                },
+                {
+                    "url": "http:\/\/t.co\/8XKCYUxnTX",
+                    "expanded_url": "http:\/\/platesphp.com",
+                    "display_url": "platesphp.com",
+                    "indices": [139, 140]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [3, 16]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 20:12:07 +0000 2014",
+        "id": 436594132127985664,
+        "id_str": "436594132127985664",
+        "text": "Plates v1.2.1 was just released with a couple handy new features: https:\/\/t.co\/aSeIcKecS7. Full documentation at http:\/\/t.co\/8XKCYUxnTX.",
+        "source": "web",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 2201822384,
+            "id_str": "2201822384",
+            "name": "The PHP League",
+            "screen_name": "thephpleague",
+            "location": "",
+            "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                            "expanded_url": "http:\/\/thephpleague.com",
+                            "display_url": "thephpleague.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 770,
+            "friends_count": 45,
+            "listed_count": 19,
+            "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+            "favourites_count": 4,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 24,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "6ABCDD",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+            "profile_link_color": "FF4043",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": true,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 1,
+        "favorite_count": 4,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "https:\/\/t.co\/aSeIcKecS7",
+                    "expanded_url": "https:\/\/github.com\/thephpleague\/plates\/releases\/tag\/1.2.1",
+                    "display_url": "github.com\/thephpleague\/p\u2026",
+                    "indices": [66, 89]
+                },
+                {
+                    "url": "http:\/\/t.co\/8XKCYUxnTX",
+                    "expanded_url": "http:\/\/platesphp.com",
+                    "display_url": "platesphp.com",
+                    "indices": [113, 135]
+                }
+            ],
+            "user_mentions": []
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "und"
+        },
+        "created_at": "Thu Feb 20 17:57:23 +0000 2014",
+        "id": 436560224720539648,
+        "id_str": "436560224720539648",
+        "text": "@ollieread @philsturgeon @thephpleague",
+        "source": "\u003ca href=\"http:\/\/twitter.com\/download\/android\" rel=\"nofollow\"\u003eTwitter for Android\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": 436536872093761536,
+        "in_reply_to_status_id_str": "436536872093761536",
+        "in_reply_to_user_id": 18670342,
+        "in_reply_to_user_id_str": "18670342",
+        "in_reply_to_screen_name": "ollieread",
+        "user": {
+            "id": 2334020585,
+            "id_str": "2334020585",
+            "name": "\u0e15\u0e31\u0e19 \u0e14\u0e32\u0e27\u0e17\u0e2d\u0e07",
+            "screen_name": "tainzyakuza",
+            "location": "",
+            "description": "",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 0,
+            "friends_count": 1,
+            "listed_count": 0,
+            "created_at": "Sun Feb 09 16:36:24 +0000 2014",
+            "favourites_count": 0,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 1,
+            "lang": "th",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/432555697025581056\/Zv1H8Ytj_normal.jpeg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/432555697025581056\/Zv1H8Ytj_normal.jpeg",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "ollieread",
+                    "name": "Ollie Read",
+                    "id": 18670342,
+                    "id_str": "18670342",
+                    "indices": [0, 10]
+                },
+                {
+                    "screen_name": "philsturgeon",
+                    "name": "Phil Sturgeon",
+                    "id": 20662440,
+                    "id_str": "20662440",
+                    "indices": [11, 24]
+                },
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [25, 38]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "und"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 16:55:56 +0000 2014",
+        "id": 436544761504092160,
+        "id_str": "436544761504092160",
+        "text": "@thephpleague It's not just you! http:\/\/t.co\/ug3gjcgDES looks down from here.",
+        "source": "\u003ca href=\"http:\/\/itunes.apple.com\/us\/app\/twitter\/id409789998?mt=12\" rel=\"nofollow\"\u003eTwitter for Mac\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": 2201822384,
+        "in_reply_to_user_id_str": "2201822384",
+        "in_reply_to_screen_name": "thephpleague",
+        "user": {
+            "id": 126174139,
+            "id_str": "126174139",
+            "name": "Josh Manders",
+            "screen_name": "certifwebninja",
+            "location": "Chicago",
+            "description": "Certified Web Ninja and Lead Software Developer at @ThreadMeUp",
+            "url": "http:\/\/t.co\/pfWiQAaHYC",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/pfWiQAaHYC",
+                            "expanded_url": "http:\/\/www.certifiedwebninja.com",
+                            "display_url": "certifiedwebninja.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 170,
+            "friends_count": 318,
+            "listed_count": 11,
+            "created_at": "Thu Mar 25 01:53:57 +0000 2010",
+            "favourites_count": 128,
+            "utc_offset": -21600,
+            "time_zone": "Central Time (US & Canada)",
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 789,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "DBE9ED",
+            "profile_background_image_url": "http:\/\/abs.twimg.com\/images\/themes\/theme17\/bg.gif",
+            "profile_background_image_url_https": "https:\/\/abs.twimg.com\/images\/themes\/theme17\/bg.gif",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/378800000396686537\/b96bf4b04a1b0ea0261fe805d4e4bdfb_normal.jpeg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/378800000396686537\/b96bf4b04a1b0ea0261fe805d4e4bdfb_normal.jpeg",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/126174139\/1349387300",
+            "profile_link_color": "FF0080",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [
+                {
+                    "url": "http:\/\/t.co\/ug3gjcgDES",
+                    "expanded_url": "http:\/\/thephpleague.com",
+                    "display_url": "thephpleague.com",
+                    "indices": [33, 55]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [0, 13]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 16:51:00 +0000 2014",
+        "id": 436543518610563073,
+        "id_str": "436543518610563073",
+        "text": "RT @ollieread: Wow, fractal is pretty damn awesome. Thanks @philsturgeon and @thephpleague",
+        "source": "\u003ca href=\"http:\/\/twitter.com\/download\/iphone\" rel=\"nofollow\"\u003eTwitter for iPhone\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 2201822384,
+            "id_str": "2201822384",
+            "name": "The PHP League",
+            "screen_name": "thephpleague",
+            "location": "",
+            "description": "The League of Extraordinary Packages is a group of developers who have banded together to build solid, well tested PHP packages using modern coding standards.",
+            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/kjiOcjQ4o5",
+                            "expanded_url": "http:\/\/thephpleague.com",
+                            "display_url": "thephpleague.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 770,
+            "friends_count": 45,
+            "listed_count": 19,
+            "created_at": "Mon Nov 18 19:09:50 +0000 2013",
+            "favourites_count": 4,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 24,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "6ABCDD",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/378800000180602096\/OCpbUaqe.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/430367824595263489\/SH31q_wb_normal.png",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/2201822384\/1391438850",
+            "profile_link_color": "FF4043",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": true,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "metadata": {
+                "result_type": "recent",
+                "iso_language_code": "en"
+            },
+            "created_at": "Thu Feb 20 16:24:35 +0000 2014",
+            "id": 436536872093761536,
+            "id_str": "436536872093761536",
+            "text": "Wow, fractal is pretty damn awesome. Thanks @philsturgeon and @thephpleague",
+            "source": "\u003ca href=\"https:\/\/about.twitter.com\/products\/tweetdeck\" rel=\"nofollow\"\u003eTweetDeck\u003c\/a\u003e",
+            "truncated": false,
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "user": {
+                "id": 18670342,
+                "id_str": "18670342",
+                "name": "Ollie Read",
+                "screen_name": "ollieread",
+                "location": "London",
+                "description": "Developer, wine drinker, gamer, eccentric human being!\r\n\r\nI make web apps, iphone apps, minecraft mods and now, youtube videos!",
+                "url": "http:\/\/t.co\/NUGqGAsT5S",
+                "entities": {
+                    "url": {
+                        "urls": [
+                            {
+                                "url": "http:\/\/t.co\/NUGqGAsT5S",
+                                "expanded_url": "http:\/\/ollieread.com",
+                                "display_url": "ollieread.com",
+                                "indices": [0, 22]
+                            }
+                        ]
+                    },
+                    "description": {
+                        "urls": []
+                    }
+                },
+                "protected": false,
+                "followers_count": 777,
+                "friends_count": 677,
+                "listed_count": 33,
+                "created_at": "Tue Jan 06 11:15:54 +0000 2009",
+                "favourites_count": 432,
+                "utc_offset": 0,
+                "time_zone": "London",
+                "geo_enabled": true,
+                "verified": false,
+                "statuses_count": 29050,
+                "lang": "en",
+                "contributors_enabled": false,
+                "is_translator": false,
+                "is_translation_enabled": false,
+                "profile_background_color": "3B60A3",
+                "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/854439877\/0e3cab922d72b79bad5029353e4856c9.png",
+                "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/854439877\/0e3cab922d72b79bad5029353e4856c9.png",
+                "profile_background_tile": false,
+                "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/432957966375862272\/yRxqsd0v_normal.jpeg",
+                "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/432957966375862272\/yRxqsd0v_normal.jpeg",
+                "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/18670342\/1367133373",
+                "profile_link_color": "2FC2EF",
+                "profile_sidebar_border_color": "000000",
+                "profile_sidebar_fill_color": "252429",
+                "profile_text_color": "666666",
+                "profile_use_background_image": true,
+                "default_profile": false,
+                "default_profile_image": false,
+                "following": false,
+                "follow_request_sent": false,
+                "notifications": false
+            },
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "retweet_count": 1,
+            "favorite_count": 1,
+            "entities": {
+                "hashtags": [],
+                "symbols": [],
+                "urls": [],
+                "user_mentions": [
+                    {
+                        "screen_name": "philsturgeon",
+                        "name": "Phil Sturgeon",
+                        "id": 20662440,
+                        "id_str": "20662440",
+                        "indices": [44, 57]
+                    },
+                    {
+                        "screen_name": "thephpleague",
+                        "name": "The PHP League",
+                        "id": 2201822384,
+                        "id_str": "2201822384",
+                        "indices": [62, 75]
+                    }
+                ]
+            },
+            "favorited": false,
+            "retweeted": false,
+            "lang": "en"
+        },
+        "retweet_count": 1,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "ollieread",
+                    "name": "Ollie Read",
+                    "id": 18670342,
+                    "id_str": "18670342",
+                    "indices": [3, 13]
+                },
+                {
+                    "screen_name": "philsturgeon",
+                    "name": "Phil Sturgeon",
+                    "id": 20662440,
+                    "id_str": "20662440",
+                    "indices": [59, 72]
+                },
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [77, 90]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    {
+        "metadata": {
+            "result_type": "recent",
+            "iso_language_code": "en"
+        },
+        "created_at": "Thu Feb 20 16:24:35 +0000 2014",
+        "id": 436536872093761536,
+        "id_str": "436536872093761536",
+        "text": "Wow, fractal is pretty damn awesome. Thanks @philsturgeon and @thephpleague",
+        "source": "\u003ca href=\"https:\/\/about.twitter.com\/products\/tweetdeck\" rel=\"nofollow\"\u003eTweetDeck\u003c\/a\u003e",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 18670342,
+            "id_str": "18670342",
+            "name": "Ollie Read",
+            "screen_name": "ollieread",
+            "location": "London",
+            "description": "Developer, wine drinker, gamer, eccentric human being!\r\n\r\nI make web apps, iphone apps, minecraft mods and now, youtube videos!",
+            "url": "http:\/\/t.co\/NUGqGAsT5S",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http:\/\/t.co\/NUGqGAsT5S",
+                            "expanded_url": "http:\/\/ollieread.com",
+                            "display_url": "ollieread.com",
+                            "indices": [0, 22]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 777,
+            "friends_count": 677,
+            "listed_count": 33,
+            "created_at": "Tue Jan 06 11:15:54 +0000 2009",
+            "favourites_count": 432,
+            "utc_offset": 0,
+            "time_zone": "London",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 29050,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "3B60A3",
+            "profile_background_image_url": "http:\/\/pbs.twimg.com\/profile_background_images\/854439877\/0e3cab922d72b79bad5029353e4856c9.png",
+            "profile_background_image_url_https": "https:\/\/pbs.twimg.com\/profile_background_images\/854439877\/0e3cab922d72b79bad5029353e4856c9.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http:\/\/pbs.twimg.com\/profile_images\/432957966375862272\/yRxqsd0v_normal.jpeg",
+            "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/432957966375862272\/yRxqsd0v_normal.jpeg",
+            "profile_banner_url": "https:\/\/pbs.twimg.com\/profile_banners\/18670342\/1367133373",
+            "profile_link_color": "2FC2EF",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "252429",
+            "profile_text_color": "666666",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 1,
+        "favorite_count": 1,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "philsturgeon",
+                    "name": "Phil Sturgeon",
+                    "id": 20662440,
+                    "id_str": "20662440",
+                    "indices": [44, 57]
+                },
+                {
+                    "screen_name": "thephpleague",
+                    "name": "The PHP League",
+                    "id": 2201822384,
+                    "id_str": "2201822384",
+                    "indices": [62, 75]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    }
+], "search_metadata": {
+    "completed_in": 0.028,
+    "max_id": 436697706640064512,
+    "max_id_str": "436697706640064512",
+    "next_results": "?max_id=436536872093761535&q=thephpleague&include_entities=1&result_type=mixed",
+    "query": "thephpleague",
+    "refresh_url": "?since_id=436697706640064512&q=thephpleague&result_type=mixed&include_entities=1",
+    "count": 15,
+    "since_id": 0,
+    "since_id_str": "0"
+}}
