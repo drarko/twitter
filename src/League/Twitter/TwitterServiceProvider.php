@@ -19,7 +19,7 @@ class TwitterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
