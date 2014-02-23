@@ -31,5 +31,4 @@ class TwitterServiceProvider extends ServiceProvider
     {
         return array();
     }
-
 }

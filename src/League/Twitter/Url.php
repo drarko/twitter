@@ -3,35 +3,50 @@
 /**
  * A class representing a URL contained in a tweet
  */
-class Url
+class Url extends ObjectTwitterAbstract
 {
     protected $url;
 
     protected $expanded_url;
 
     /**
-     * constructor
-     *
-     * @param string $url
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->url = isset($data['url']) ? $data['url'] : null;
+        $this->expanded_url = isset($data['expanded_url']) ? $data['expanded_url'] : null;
+    }
+
+    /**
      * @param string $expanded_url
      */
-    public function __construct($url, $expanded_url)
+    public function setExpandedUrl($expanded_url)
     {
-        $this->url = $url;
         $this->expanded_url = $expanded_url;
     }
 
     /**
-     * Create a new instance based on an array
-     *
-     * @param Array $data
-     *
-     * @return \League\Twitter\Url
+     * @return string
      */
-    public static function newFromArray($data)
+    public function getExpandedUrl()
     {
-        $url = (isset($data['url'])) ? $data['url'] : null;
-        $expanded_url = (isset($data['expanded_url'])) ? $data['expanded_url'] : null;
-        return new static($url, $expanded_url);
+        return $this->expanded_url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

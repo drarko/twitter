@@ -4,7 +4,7 @@ namespace League\Twitter;
 /**
  * A class representing the Status structure used by the twitter API.
  */
-class Status
+class Status extends ObjectTwitterAbstract
 {
     protected $created_at;
     protected $created_at_in_seconds;
@@ -573,129 +573,5 @@ class Status
     public function setWithheldScope($withheld_scope)
     {
         $this->withheld_scope = $withheld_scope;
-    }
-
-    /**
-     * A string representation of the Status instance
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toJson();
-    }
-
-    /**
-     * String representation of the Status instance
-     * @return string
-     */
-    public function toJson()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * An array representation of the twitter status instance
-     * @return array $data
-     */
-    public function toArray()
-    {
-        $data = array();
-        if ($this->created_at !== null) {
-            $data['created_at'] = $this->created_at;
-        }
-        if ($this->favorited !== null) {
-            $data['favorited'] = $this->favorited;
-        }
-        if ($this->favorite_count !== null) {
-            $data['favorite_count'] = $this->favorite_count;
-        }
-        if ($this->id !== null) {
-            $data['id'] = $this->id;
-        }
-        if ($this->text !== null) {
-            $data['text'] = $this->text;
-        }
-        if ($this->location !== null) {
-            $data['location'] = $this->location;
-        }
-        if ($this->user !== null) {
-            $data['user'] = $this->user;
-        }
-        if ($this->in_reply_to_screen_name !== null) {
-            $data['in_reply_to_screen_name'] = $this->in_reply_to_screen_name;
-        }
-        if ($this->in_reply_to_user_id !== null) {
-            $data['in_reply_to_user_id'] = $this->in_reply_to_user_id;
-        }
-        if ($this->in_reply_to_status_id !== null) {
-            $data['in_reply_to_status_id'] = $this->in_reply_to_status_id;
-        }
-        if ($this->truncated !== null) {
-            $data['truncated'] = $this->truncated;
-        }
-        if ($this->retweeted !== null) {
-            $data['retweeted'] = $this->retweeted;
-        }
-        if ($this->favorited !== null) {
-            $data['favorited'] = $this->favorited;
-        }
-        if ($this->source !== null) {
-            $data['source'] = $this->source;
-        }
-        if ($this->geo !== null) {
-            $data['geo'] = $this->geo;
-        }
-        if ($this->place !== null) {
-            $data['place'] = $this->place;
-        }
-        if ($this->coordinates !== null) {
-            $data['coordinates'] = $this->coordinates;
-        }
-        if ($this->contributors !== null) {
-            $data['contributors'] = $this->contributors;
-        }
-        if ($this->hashtags !== null) {
-            $data['hashtags'] = $this->hashtags;
-        }
-        if ($this->retweeted_status !== null) {
-            $data['retweeted_status'] = $this->retweeted_status;
-        }
-        if ($this->retweet_count !== null) {
-            $data['retweet_count'] = $this->retweet_count;
-        }
-        if ($this->urls !== null) {
-            $data['urls'] = $this->urls;
-        }
-        if ($this->user_mentions !== null) {
-            $data['user_mentions'] = $this->user_mentions;
-        }
-        if ($this->current_user_retweet !== null) {
-            $data['current_user_retweet'] = $this->current_user_retweet;
-        }
-        if ($this->possibly_sensitive !== null) {
-            $data['possibly_sensitive'] = $this->possibly_sensitive;
-        }
-        if ($this->scopes !== null) {
-            $data['scopes'] = $this->scopes;
-        }
-        if ($this->withheld_copyright !== null) {
-            $data['withheld_copyright'] = $this->withheld_copyright;
-        }
-        if ($this->withheld_in_countries !== null) {
-            $data['withheld_in_countries'] = $this->withheld_in_countries;
-        }
-        if ($this->withheld_scope !== null) {
-            $data['withheld_scope'] = $this->withheld_scope;
-        }
-        return $data;
-    }
-
-    public static function newFromJsonArray($jsonArray)
-    {
-        $status = array();
-        foreach ($jsonArray as $jsonStatus) {
-            $status[] = new Status($jsonStatus);
-        }
-        return $status;
     }
 }

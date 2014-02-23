@@ -4,7 +4,7 @@ namespace League\Twitter;
 /**
  * A class representing the DirectMessage structure used by the twitter API.
  */
-class DirectMessage
+class DirectMessage extends ObjectTwitterAbstract
 {
     /**
      * @var int The unique id of this direct message.
@@ -91,7 +91,7 @@ class DirectMessage
      */
     public function setCreatedAt(\DateTime $created_at)
     {
-        $this->created_at = $created_at;
+        $this->created_at = time($created_at);
     }
 
     /**
@@ -102,7 +102,8 @@ class DirectMessage
     public function getCreatedAtInSeconds()
     {
         $now = new \DateTime();
-        return abs($now->getTimestamp() - $this->created_at->getTimestamp());
+        $createdAt = new \DateTime($this->created_at);
+        return abs($now->getTimestamp() - $createdAt->getTimestamp());
     }
 
     /**
@@ -183,25 +184,5 @@ class DirectMessage
     public function setText($text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * Returns a JSON string representation of this twitter.DirectMessage instance
-     * 
-     * @return string
-     */
-    public function toJson()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * Returns an array representation of this twitter.DirectMessage instance
-     * 
-     * @return array
-     */
-    public function toArray()
-    {
-        return array_filter(get_object_vars($this));
     }
 }
