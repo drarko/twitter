@@ -19,7 +19,7 @@ class TwitterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -31,5 +31,4 @@ class TwitterServiceProvider extends ServiceProvider
     {
         return array();
     }
-
 }

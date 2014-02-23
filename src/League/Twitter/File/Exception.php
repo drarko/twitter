@@ -1,4 +1,5 @@
-<?php namespace League\Twitter\File;
+<?php namespace League\Twitter\Filw;
 
-class _FileCacheError(Exception):
-  '''Base exception class for FileCache related errors'''
+class Exception extends \Exception
+{
+}

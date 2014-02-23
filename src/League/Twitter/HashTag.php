@@ -1,9 +1,12 @@
 <?php namespace League\Twitter;
 
-class HashTag
+class HashTag extends ObjectTwitterAbstract
 {
+    protected $text;
+
     /**
      * A class representing a Twitter HashTag.
+     * @param string $text
      */
     public function __construct($text)
     {
@@ -11,16 +14,18 @@ class HashTag
     }
 
     /**
-     * Create a new instance based on a JSON dict.
-     *
-     * @param array $data Array containing the JSON data from the twitter API
-     *
-     * @return \League\Twitter\HashTag
+     * @param string $text
      */
-    public static function newFromJsonArray($data)
+    public function setText($text)
     {
-        $text = isset($data['text']) ? $data['text'] : null;
+        $this->text = $text;
+    }
 
-        return new static($text);
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
     }
 }

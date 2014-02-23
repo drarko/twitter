@@ -1,6 +1,6 @@
 <?php namespace League\Twitter;
 
-class User
+class User extends ObjectTwitterAbstract
 {
     protected $id;
     protected $name;
@@ -34,7 +34,7 @@ class User
     /**
      * Constructor
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->id = isset($data['id']) ? $data['id'] : null;
         $this->name = isset($data['name']) ? $data['name'] : null;
@@ -42,10 +42,14 @@ class User
         $this->location = isset($data['location']) ? $data['location'] : null;
         $this->description = isset($data['description']) ? $data['description'] : null;
         $this->profile_image_url = isset($data['profile_image_url']) ? $data['profile_image_url'] : null;
-        $this->profile_background_tile = isset($data['profile_background_tile']) ? $data['profile_background_tile'] : null;
-        $this->profile_background_image_url = isset($data['profile_background_image_url']) ? $data['profile_background_image_url'] : null;
-        $this->profile_sidebar_fill_color = isset($data['profile_sidebar_fill_color']) ? $data['profile_sidebar_fill_color'] : null;
-        $this->profile_background_color = isset($data['profile_background_color']) ? $data['profile_background_color'] : null;
+        $this->profile_background_tile = isset($data['profile_background_tile']) ?
+            $data['profile_background_tile'] : null;
+        $this->profile_background_image_url = isset($data['profile_background_image_url']) ?
+            $data['profile_background_image_url'] : null;
+        $this->profile_sidebar_fill_color = isset($data['profile_sidebar_fill_color']) ?
+            $data['profile_sidebar_fill_color'] : null;
+        $this->profile_background_color = isset($data['profile_background_color']) ?
+            $data['profile_background_color'] : null;
         $this->profile_link_color = isset($data['profile_link_color']) ? $data['profile_link_color'] : null;
         $this->profile_text_color = isset($data['profile_text_color']) ? $data['profile_text_color'] : null;
         $this->protected = isset($data['protected']) ? $data['protected'] : null;
@@ -624,127 +628,5 @@ class User
     public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
-    }
-
-    /**
-     * Comparison to see if the provided object equals the current instance
-     * @param \League\Twitter\User $other
-     * @return bool
-     */
-    public function isEqual($other)
-    {
-        return ($this == $other);
-    }
-
-    /**
-     * Method for printing the object as a string
-     * @return string a json representation of the object
-     */
-    public function __toString()
-    {
-        return $this->toJson();
-    }
-
-    /**
-     * Method for printing the object as a string
-     * @return string a json representation of the object
-     */
-    public function toJson()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * Method to return the User object as an array
-     * @return array $data
-     */
-    public function toArray()
-    {
-        $data = array();
-        if ($this->id !== null) {
-            $data['id'] = $this->id;
-        }
-        if ($this->name !== null) {
-            $data['name'] = $this->name;
-        }
-        if ($this->screen_name !== null) {
-            $data['screen_name'] = $this->screen_name;
-        }
-        if ($this->location !== null) {
-            $data['location'] = $this->location;
-        }
-        if ($this->description !== null) {
-            $data['description'] = $this->description;
-        }
-        if ($this->profile_image_url !== null) {
-            $data['profile_image_url'] = $this->profile_image_url;
-        }
-        if ($this->profile_background_tile !== null) {
-            $data['profile_background_tile'] = $this->profile_background_tile;
-        }
-        if ($this->profile_background_image_url !== null) {
-            $data['profile_background_image_url'] = $this->profile_background_image_url;
-        }
-        if ($this->profile_sidebar_fill_color !== null) {
-            $data['profile_sidebar_fill_color'] = $this->profile_sidebar_fill_color;
-        }
-        if ($this->profile_background_color !== null) {
-            $data['profile_background_color'] = $this->profile_background_color;
-        }
-        if ($this->profile_link_color !== null) {
-            $data['profile_link_color'] = $this->profile_link_color;
-        }
-        if ($this->profile_text_color !== null) {
-            $data['profile_text_color'] = $this->profile_text_color;
-        }
-        if ($this->protected !== null) {
-            $data['protected'] = $this->protected;
-        }
-        if ($this->utc_offset !== null) {
-            $data['utc_offset'] = $this->utc_offset;
-        }
-        if ($this->time_zone !== null) {
-            $data['time_zone'] = $this->time_zone;
-        }
-        if ($this->url !== null) {
-            $data['url'] = $this->url;
-        }
-        if ($this->status !== null) {
-            $data['status'] = $this->status;
-        }
-        if ($this->friends_count !== null) {
-            $data['friends_count'] = $this->friends_count;
-        }
-        if ($this->followers_count !== null) {
-            $data['followers_count'] = $this->followers_count;
-        }
-        if ($this->statuses_count !== null) {
-            $data['statuses_count'] = $this->statuses_count;
-        }
-        if ($this->favourites_count !== null) {
-            $data['favourites_count'] = $this->favourites_count;
-        }
-        if ($this->geo_enabled !== null) {
-            $data['geo_enabled'] = $this->geo_enabled;
-        }
-        if ($this->verified !== null) {
-            $data['verified'] = $this->verified;
-        }
-        if ($this->lang !== null) {
-            $data['lang'] = $this->lang;
-        }
-        if ($this->notifications !== null) {
-            $data['notifications'] = $this->notifications;
-        }
-        if ($this->contributors_enabled !== null) {
-            $data['contributors_enabled'] = $this->contributors_enabled;
-        }
-        if ($this->created_at !== null) {
-            $data['created_at'] = $this->created_at;
-        }
-        if ($this->listed_count !== null) {
-            $data['listed_count'] = $this->listed_count;
-        }
-        return $data;
     }
 }

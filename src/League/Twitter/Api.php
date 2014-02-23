@@ -2,6 +2,7 @@
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Http\Message\Response;
 use Guzzle\Plugin\Oauth\OauthPlugin;
 
 class Api
@@ -154,7 +155,8 @@ class Api
             $request = $client->post($http_method, $this->request_headers, $params);
 
             if (isset($parameters['media'])) {
-                $request->addPostFiles(array('file' => $parameters['media']));
+                /** @todo implement post files */
+                //$request->addPostFiles(array('file' => $parameters['media']));
             }
 
         } else {
@@ -266,11 +268,11 @@ class Api
      * @param int|string $count Number of results to return.  Default is 20. [Optional]
      * @param string $include_entities If true, each tweet will include a node called "entities". [Optional]
      *
+     * @throws \InvalidArgumentException
      * @return array[League\Twitter\User]
      */
     public function getUsersSearch($term, $page = 1, $count = 20, $include_entities = null)
     {
-        // Build request parameters
         $parameters = array();
 
         if (!is_null($term)) {
@@ -281,16 +283,22 @@ class Api
             $parameters['include_entities'] = 1;
         }
 
-        $parameters['count'] = (int)$count;
+        if ($page) {
+            if (!is_numeric($page)) {
+                throw new \InvalidArgumentException("'pag' must be an integer");
+            }
+            $parameters['p'] = $page;
+        }
 
-        # Make and send requests
+        $parameters['count'] = $count;
+
         $url = "{$this->base_url}/users/search.json";
         $json = $this->fetchUrl($url, 'GET', $parameters);
-        $data = $this->_ParseAndCheckTwitter($json);
+        $data = $this->parseAndCheckTwitter($json);
 
         $result = array_map(
             function ($x) {
-                return User::newFromJsonArray($x);
+                return new User($x);
             },
             $data
         );
@@ -327,13 +335,14 @@ class Api
             $parameters['exclude'] = $exclude;
         }
 
-        $json = $this->fetchUrl($url, $parameters);
+        $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
         $timestamp = $data[0]['as_of'];
 
         $trends = array_map(
             function ($x) use ($timestamp) {
-                return Trend::newFromJsonArray($x, $timestamp);
+                $x['timestamp'] = $timestamp;
+                return new Trend($x);
             },
             $data[0]['trends']
         );
@@ -388,10 +397,6 @@ class Api
 
         $url = "{$this->base_url}/statuses/home_timeline.json";
 
-        if (!$this->_oauth_consumer) {
-            throw new \Exception("API must be authenticated.");
-        }
-
         $parameters = array();
 
         if (!is_null($count)) {
@@ -411,7 +416,7 @@ class Api
                 throw new \InvalidArgumentException("'since_id' must be an integer");
             }
 
-            $parameters['since_id'] = (int)$since_id;
+            $parameters['since_id'] = $since_id;
         }
 
         if ($max_id) {
@@ -419,7 +424,7 @@ class Api
                 throw new \InvalidArgumentException("'max_id' must be an integer");
             }
 
-            $parameters['max_id'] = (int)$max_id;
+            $parameters['max_id'] = $max_id;
         }
 
         if ($trim_user) {
@@ -442,7 +447,7 @@ class Api
 
         $result = array_map(
             function ($x) {
-                return Status::newFromJsonArray($x);
+                return new Status($x);
             },
             $data
         );
@@ -544,7 +549,7 @@ class Api
 
         $result = array_map(
             function ($x) {
-                return Status::newFromJsonArray($x);
+                return new Status($x);
             },
             $data
         );
@@ -580,10 +585,6 @@ class Api
     ) {
         $url = "{$this->base_url}/statuses/show.json";
 
-        if (!$this->_oauth_consumer) {
-            throw new \Exception("API must be authenticated.");
-        }
-
         if (!is_numeric($id)) {
             throw new \InvalidArgumentException("'id' must be an integer");
         }
@@ -602,7 +603,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
     /**
@@ -621,9 +622,6 @@ class Api
      */
     public function destroyStatus($id, $trim_user = false)
     {
-        if (!$this->_oauth_consumer) {
-            throw new \Exception("API must be authenticated.");
-        }
 
         if (!is_numeric($id)) {
             throw new \InvalidArgumentException("'id' must be an integer");
@@ -639,10 +637,10 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $post_data);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
-    protected function calculateStatusLength($cls, $status, $linksize = 19)
+    protected function calculateStatusLength($status, $linksize = 19)
     {
         $dummy_link = sprintf('https://-%d-chars%s/', $linksize, str_repeat('-', $linksize - 18));
 
@@ -673,7 +671,7 @@ class Api
      *
      * @param string $status The message text to be posted. Must be less
      *   than or equal to 140 characters.
-     * @param int in_reply_to_status_id The ID of an existing status that the status to
+     * @param int|null $in_reply_to_status_id The ID of an existing status that the status to
      *   be posted is in reply to.  This implicitly sets the in_reply_to_user_id
      *   attribute of the resulting status to the user ID of the message being replied
      *   to. Invalid/missing status IDs will be ignored. [Optional]
@@ -706,13 +704,13 @@ class Api
         $trim_user = false
     ) {
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
         $url = "{$this->base_url}/statuses/update.json";
 
-        if ($this->calculateStatusLength($status, $this->_shortlink_size) > static::CHARACTER_LIMIT) {
+        if ($this->calculateStatusLength($status, $this->shortlink_size) > static::CHARACTER_LIMIT) {
             throw new \InvalidArgumentException(
                 "Text must be less than or equal to {static::CHARACTER_LIMIT} characters."
             );
@@ -737,7 +735,7 @@ class Api
         }
         $json = $this->fetchUrl($url, 'GET', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
     /**
@@ -750,7 +748,7 @@ class Api
      * @param string $status The message text to be posted. Must be less
      *   than or equal to 140 characters.
      * @param string $media The location of the media to be sent with the status.
-     * @param int in_reply_to_status_id The ID of an existing status that the status to
+     * @param int $in_reply_to_status_id The ID of an existing status that the status to
      *   be posted is in reply to.  This implicitly sets the in_reply_to_user_id
      *   attribute of the resulting status to the user ID of the message being replied
      *   to. Invalid/missing status IDs will be ignored. [Optional]
@@ -781,13 +779,13 @@ class Api
         $display_coordinates = false
     ) {
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
         $url = "{$this->base_url}/statuses/update_with_media.json";
 
-        if ($this->calculateStatusLength($status, $this->_shortlink_size) > static::CHARACTER_LIMIT) {
+        if ($this->calculateStatusLength($status, $this->shortlink_size) > static::CHARACTER_LIMIT) {
             throw new \InvalidArgumentException(
                 "Text must be less than or equal to {static::CHARACTER_LIMIT} characters."
             );
@@ -814,7 +812,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
 
     }
 
@@ -832,9 +830,10 @@ class Api
      * @param string $continuation The character string, if any, to be appended to all but the
      *   last message.  Note that Twitter strips trailing '...' strings from messages.
      *   Consider using the unicode \u2026 character (horizontal ellipsis) instead.
-     * @param array args See League\Twitter::postUpdate() for a list of accepted parameters.
+     * @param array $args See League\Twitter::postUpdate() for a list of accepted parameters.
      *
      * @return \League\Twitter\Status
+     * @todo implement
      */
     public function postUpdates($status, $continuation = null, array $args = null)
     {
@@ -846,13 +845,13 @@ class Api
         }
 
         $line_length = static::CHARACTER_LIMIT - strlen($continuation);
-        $lines = $this->wordWrap($status, $line_length);
-
+        $lines = wordwrap($status, $line_length);
+        /*
         $last_line = array_pop($lines);
         foreach ($lines as $line) {
             $results[] = $this->postUpdate($line . $continuation, $args);
-        }
-        $results[] = $this->postUpdate($last_line, $args);
+        } */
+        $results[] = $this->postUpdate($lines, $args);
         return $results;
     }
 
@@ -871,7 +870,7 @@ class Api
      */
     public function postRetweet($original_id, $trim_user = false)
     {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -892,7 +891,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
     /**
@@ -970,7 +969,7 @@ class Api
     public function getRetweets($status_id, $count = null, $trim_user = false)
     {
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -992,7 +991,7 @@ class Api
 
         $result = array_map(
             function ($x) {
-                return Status::newFromJsonArray($x);
+                return new Status($x);
             },
             $data
         );
@@ -1023,7 +1022,7 @@ class Api
         $include_user_entities = true
     ) {
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1067,7 +1066,7 @@ class Api
 
         $result = array_map(
             function ($x) {
-                return Status::newFromJsonArray($x);
+                return new Status($x);
             },
             $data
         );
@@ -1103,7 +1102,7 @@ class Api
         isset($skip_status) or $skip_status = false;
         isset($include_user_entities) or $include_user_entities = false;
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
 
@@ -1133,7 +1132,7 @@ class Api
 
             $result = array_map(
                 function ($x) {
-                    return User::newFromJsonArray($x);
+                    return new User($x);
                 },
                 $data['users']
             );
@@ -1177,7 +1176,7 @@ class Api
     ) {
 
         $url = sprintf('%s/friends/ids.json', $this->base_url);
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
         $parameters = array();
@@ -1225,7 +1224,7 @@ class Api
      * @param int $user_id The id of the user to retrieve the id list for
      * @param string $screen_name The screen_name of the user to retrieve the id list for
      * @param int $cursor Specifies the Twitter API Cursor location to start at.
-     * @param bool|\League\Twitter\foo $stringify_ids if True then twitter will return the ids as strings instead of int
+     * @param bool|int $stringify_ids if True then twitter will return the ids as strings instead of int
      * @param int $count The number of status messages to retrieve. [Optional]
      *
      * @throws \Exception
@@ -1238,9 +1237,9 @@ class Api
         $stringify_ids = false,
         $count = null
     ) {
-        $url = sprint('%s/followers/ids.json', $this->base_url);
+        $url = sprintf('%s/followers/ids.json', $this->base_url);
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
 
@@ -1309,7 +1308,7 @@ class Api
         $skip_status = false,
         $include_user_entities = false
     ) {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
         $url = "{$this->base_url}/followers/list.json";
@@ -1339,7 +1338,7 @@ class Api
 
             $result = array_map(
                 function ($x) {
-                    return User::newFromJsonArray($x);
+                    return new User($x);
                 },
                 $data['users']
             );
@@ -1380,7 +1379,7 @@ class Api
      */
     public function usersLookup($user_id = null, $screen_name = null, $users = null, $include_entities = true)
     {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1434,7 +1433,7 @@ class Api
 
         return array_map(
             function ($user) {
-                return User::newFromJsonArray($user);
+                return new User($user);
             },
             $data
         );
@@ -1462,7 +1461,7 @@ class Api
         $url = "{$this->base_url}/users/show.json";
         $parameters = array();
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception('The League\Twitter\Api instance must be authenticated.');
         }
 
@@ -1480,7 +1479,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'GET', $parameters);
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray($data);
+        return new User($data);
     }
 
     /**
@@ -1514,7 +1513,7 @@ class Api
     ) {
         $url = "{$this->base_url}/direct_messages.json";
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1532,7 +1531,7 @@ class Api
             if (!is_numeric($count)) {
                 throw new \Exception("count must be an integer");
             }
-            $parameters['count'] = (int)$count;
+            $parameters['count'] = $count;
         }
 
         if (!$include_entities) {
@@ -1548,7 +1547,7 @@ class Api
 
         return array_map(
             function ($message) {
-                return DirectMessage::newFromJsonArray($message);
+                return new DirectMessage($message);
             },
             $data
         );
@@ -1584,7 +1583,7 @@ class Api
     ) {
         $url = "{$this->base_url}/direct_messages/sent.json";
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
         $parameters = array();
@@ -1614,7 +1613,7 @@ class Api
 
         return array_map(
             function ($message) {
-                return DirectMessage::newFromJsonArray($message);
+                return new DirectMessage($message);
             },
             $data
         );
@@ -1634,7 +1633,7 @@ class Api
      */
     public function postDirectMessage($text, $user_id = null, $screen_name = null)
     {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1652,7 +1651,7 @@ class Api
         $json = $this->fetchUrl($url, 'POST', $post);
         $data = $this->parseAndCheckTwitter($json);
 
-        return DirectMessage::newFromJsonArray($data);
+        return new DirectMessage($data);
     }
 
     /**
@@ -1678,7 +1677,7 @@ class Api
         $json = $this->fetchUrl($url, $post);
         $data = $this->parseAndCheckTwitter($json);
 
-        return DirectMessage::newFromJsonArray($data);
+        return new DirectMessage($data);
     }
 
     /**
@@ -1712,7 +1711,7 @@ class Api
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
 
-        return User::newFromJsonArray($data);
+        return new User($data);
     }
 
     /**
@@ -1739,7 +1738,7 @@ class Api
         }
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray($data);
+        return new User($data);
     }
 
     /**
@@ -1774,7 +1773,7 @@ class Api
         $json = $this->fetchUrl($url, 'POST', $post);
         $data = $this->parseAndCheckTwitter($json);
 
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
     /**
@@ -1808,7 +1807,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return Status::newFromJsonArray($data);
+        return new Status($data);
     }
 
     /**
@@ -1874,7 +1873,7 @@ class Api
 
         return array_map(
             function ($status) {
-                return Status::newFromJsonArray($status);
+                return new Status($status);
             },
             $data
         );
@@ -1907,7 +1906,7 @@ class Api
     ) {
         $url = "{$this->base_url}/statuses/mentions_timeline.json";
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1949,7 +1948,7 @@ class Api
 
         return array_map(
             function ($status) {
-                return Status::newFromJsonArray($status);
+                return new Status($status);
             },
             $data
         );
@@ -1965,14 +1964,14 @@ class Api
      * @param int $description
      *
      * @throws \Exception
-     * @return \League\Twitter\List
+     * @return \League\Twitter\ListTwitter
      */
     public function createList($name, $mode = null, $description = null)
     {
 
         $url = "{$this->base_url}/lists/create.json";
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -1987,7 +1986,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $post_data);
         $data = $this->parseAndCheckTwitter($json);
-        return List2::newFromJsonArray($data);
+        return new ListTwitter($data);
     }
 
     public function destroyList(
@@ -2026,7 +2025,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return List2::newFromJsonArray($data);
+        return new ListTwitter($data);
     }
 
     public function createSubscription(
@@ -2036,7 +2035,7 @@ class Api
         $slug = null
     ) {
         $url = "{$this->base_url}/lists/subscribers/create.json";
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -2069,7 +2068,7 @@ class Api
 
         $json = $this->fetchUrl($url, $data);
         $data = $this->parseAndCheckTwitter($json);
-        return List2::newFromJsonArray($data);
+        return new ListTwitter($data);
     }
 
     /**
@@ -2085,7 +2084,7 @@ class Api
     ) {
         $url = "{$this->base_url}/lists/subscribers/destroy.json";
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("The League\Twitter\Api instance must be authenticated.");
         }
 
@@ -2118,7 +2117,7 @@ class Api
 
         $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
-        return List2::newFromJsonArray($data);
+        return new ListTwitter($data);
     }
 
     /**
@@ -2129,7 +2128,7 @@ class Api
      */
     public function getSubscriptions($user_id = null, $screen_name = null, $count = 20, $cursor = -1)
     {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
 
@@ -2144,8 +2143,8 @@ class Api
         }
 
         $parameters = array(
-            'cursor' => (int)$cursor,
-            'count' => (int)$count,
+            'cursor' => $cursor,
+            'count' => $count,
         );
 
         if (!is_null($user_id)) {
@@ -2165,7 +2164,7 @@ class Api
 
         return array_map(
             function ($list) {
-                return List2::newFromJsonArray($list);
+                return new ListTwitter($list);
             },
             $data['lists']
         );
@@ -2174,7 +2173,7 @@ class Api
     public function getLists($user_id = null, $screen_name = null, $count = null, $cursor = -1)
     {
 
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("League\Twitter\Api instance must be authenticated");
         }
 
@@ -2207,7 +2206,7 @@ class Api
                 $result,
                 array_map(
                     function ($list) {
-                        return List2::newFromJsonArray($list);
+                        return new ListTwitter($list);
                     },
                     $data['lists']
                 )
@@ -2229,7 +2228,7 @@ class Api
 
     public function verifyCredentials()
     {
-        if (!$this->_oauth_consumer) {
+        if (!$this->oauth_consumer) {
             throw new \Exception("Api instance must first be given user credentials.");
         }
         $url = "{$this->base_url}/account/verify_credentials.json";
@@ -2238,7 +2237,7 @@ class Api
             $json = $this->fetchUrl($url, 'GET', array(), array('no_cache' => true));
         } catch (BadResponseException $e) {
 
-            if ($e->getCode() == SomeHttpLib::UNAUTHORIZED) {
+            if ($e->getCode() == 401) {
                 return null;
             } else {
                 throw $e;
@@ -2246,7 +2245,7 @@ class Api
         }
 
         $data = $this->parseAndCheckTwitter($json);
-        return User::newFromJsonArray($data);
+        return new User($data);
     }
 
     /**
@@ -2385,11 +2384,6 @@ class Api
         // Break url into constituent parts
         $url_parts = parse_url($url);
 
-        $scheme = $url_parts['scheme'];
-        $netloc = $url_parts['host'];
-        $query = isset($url_parts['query']) ? $url_parts['query'] : null;
-        $fragment = isset($url_parts['fragment']) ? $url_parts['fragment'] : null;
-
         // Add any additional path elements to the path
         if ($path_elements) {
             // Filter out the path elements that have a value of null
@@ -2437,14 +2431,16 @@ class Api
         $this->default_params = array();
     }
 
+    /**
+     * @param Response $response
+     * @return mixed
+     */
     protected function decompressGzippedResponse($response)
     {
         $raw_data = $response->getBody();
-
-        if ($response->headers['content-encoding'] === 'gzip') {
+        if ($response->getHeader('content-encoding') === 'gzip') {
             // return gzip.GzipFile(fileobj=StringIO.StringIO(raw_data)).read();
         }
-
         return $raw_data;
     }
 
@@ -2493,7 +2489,10 @@ class Api
      */
     protected function parseAndCheckTwitter($json)
     {
+        $data = null;
+
         try {
+            //$jsonVal = $json->__toString();
             $data = json_decode($json, true);
             $this->checkForTwitterError($data);
         } catch (Exception $e) {
@@ -2527,5 +2526,69 @@ class Api
         if (array_key_exists('errors', $data)) {
             throw new \Exception($data['errors']);
         }
+    }
+
+    /**
+     * @param mixed $access_token_key
+     */
+    public function setAccessTokenKey($access_token_key)
+    {
+        $this->access_token_key = $access_token_key;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccessTokenKey()
+    {
+        return $this->access_token_key;
+    }
+
+    /**
+     * @param mixed $access_token_secret
+     */
+    public function setAccessTokenSecret($access_token_secret)
+    {
+        $this->access_token_secret = $access_token_secret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccessTokenSecret()
+    {
+        return $this->access_token_secret;
+    }
+
+    /**
+     * @param mixed $consumer_key
+     */
+    public function setConsumerKey($consumer_key)
+    {
+        $this->consumer_key = $consumer_key;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConsumerKey()
+    {
+        return $this->consumer_key;
+    }
+
+    /**
+     * @param mixed $consumer_secret
+     */
+    public function setConsumerSecret($consumer_secret)
+    {
+        $this->consumer_secret = $consumer_secret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConsumerSecret()
+    {
+        return $this->consumer_secret;
     }
 }
