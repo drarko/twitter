@@ -71,18 +71,6 @@ class User extends ObjectTwitterAbstract
     }
 
     /**
-     * Static method to return a new instance of the user object
-     *
-     * @param array $data
-     *
-     * @return \League\Twitter\User
-     */
-    public static function newFromJsonArray($data)
-    {
-        return new static($data);
-    }
-
-    /**
      * Get the Id of the user
      *
      * @return string $id
@@ -353,6 +341,7 @@ class User extends ObjectTwitterAbstract
     }
 
     /**
+     *
      * Set protected status to specified value
      *
      * @param bool $protected
@@ -373,6 +362,7 @@ class User extends ObjectTwitterAbstract
     }
 
     /**
+     *
      * Set UTC offset to specified value
      *
      * @param int $utc_offset

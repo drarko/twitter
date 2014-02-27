@@ -79,4 +79,20 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('League\Twitter\Status', $result[0]);
         $this->assertEquals('437550566881763328', $result[0]->getId());
     }
+
+    public function testGetUserTimeline()
+    {
+        $this->mockHttpRequest('[{"created_at": "Sun Feb 23 09:06:54 +0000 2014", "id": 437513888762847232},{"created_at": "Sun Feb 23 09:06:54 +0000 2014","id": 437513888762847232}]');
+        $result = $this->api->getUserTimeline(14336120);
+        $this->assertInstanceOf('League\Twitter\Status', $result[0]);
+        $this->assertEquals('437513888762847232', $result[0]->getId());
+    }
+
+    public function testGetStatus()
+    {
+        $this->mockHttpRequest('{"created_at": "Sat Mar 28 23:26:14 +0000 2009", "id": 1409441792}');
+        $result = $this->api->getStatus(437513888762847232);
+        $this->assertInstanceOf('League\Twitter\Status', $result);
+        $this->assertEquals('1409441792', $result->getId());
+    }
 }

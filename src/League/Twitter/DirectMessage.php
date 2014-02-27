@@ -46,12 +46,12 @@ class DirectMessage extends ObjectTwitterAbstract
      */
     public function __construct(array $data)
     {
+        $this->id = isset($data['id']) ? $data['id'] : null;
         $this->text = isset($data['text']) ? $data['text'] : null;
         $this->created_at = isset($data['created_at']) ? $data['created_at'] : null;
         $this->recipient_id = isset($data['recipient_id']) ? $data['recipient_id'] : null;
         $this->sender_id = isset($data['sender_id']) ? $data['sender_id'] : null;
         $this->sender_screen_name = isset($data['sender_screen_name']) ? $data['sender_screen_name'] : null;
-        $this->id = isset($data['id']) ? $data['id'] : null;
         $this->recipient_screen_name = isset($data['recipient_screen_name']) ? $data['recipient_screen_name'] : null;
     }
 
@@ -81,7 +81,9 @@ class DirectMessage extends ObjectTwitterAbstract
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        $dateTime = new \DateTime();
+        $dateTime->setTimestamp($this->created_at);
+        return $dateTime;
     }
 
     /**
@@ -91,7 +93,7 @@ class DirectMessage extends ObjectTwitterAbstract
      */
     public function setCreatedAt(\DateTime $created_at)
     {
-        $this->created_at = time($created_at);
+        $this->created_at = $created_at->getTimestamp();
     }
 
     /**
@@ -102,8 +104,7 @@ class DirectMessage extends ObjectTwitterAbstract
     public function getCreatedAtInSeconds()
     {
         $now = new \DateTime();
-        $createdAt = new \DateTime($this->created_at);
-        return abs($now->getTimestamp() - $createdAt->getTimestamp());
+        return abs($now->getTimestamp() - $this->created_at);
     }
 
     /**

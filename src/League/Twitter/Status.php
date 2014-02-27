@@ -322,7 +322,7 @@ class Status extends ObjectTwitterAbstract
 
     /**
      * Get a twitter.User representing the entity posting this status message.
-     * @return string
+     * @return User
      */
     public function getUser()
     {
@@ -331,7 +331,7 @@ class Status extends ObjectTwitterAbstract
 
     /**
      * Set a twitter.User representing the entity posting this status message.
-     * @param string $user
+     * @param User $user
      */
     public function setUser($user)
     {
