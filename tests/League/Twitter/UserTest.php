@@ -185,6 +185,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAndSetListedCount()
     {
+
         $this->user->setListedCount(42);
         $this->assertEquals(42, $this->user->getListedCount());
     }
