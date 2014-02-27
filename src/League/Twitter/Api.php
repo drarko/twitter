@@ -101,10 +101,10 @@ class Api
         $access_token_key = null,
         $access_token_secret = null
     ) {
-        $this->consumer_key = $consumer_key;
-        $this->consumer_secret = $consumer_secret;
-        $this->access_token_key = $access_token_key;
-        $this->access_token_secret = $access_token_secret;
+        $this->setConsumerKey($consumer_key);
+        $this->setConsumerSecret($consumer_secret);
+        $this->setAccessTokenKey($access_token_key);
+        $this->setAccessTokenSecret($access_token_secret);
         $this->oauth_consumer = null;
 
         if (!is_null($consumer_key) and !is_null($consumer_secret) and
@@ -627,7 +627,7 @@ class Api
             throw new \InvalidArgumentException("'id' must be an integer");
         }
 
-        $post_data = array('id' => (int)$id);
+        $post_data = array('id' => $id);
 
         $url = "{$this->base_url}/statuses/destroy/{$id}.json";
 
@@ -800,11 +800,11 @@ class Api
             $data['in_reply_to_status_id'] = $in_reply_to_status_id;
         }
         if (!(is_null($latitude) or is_null($longitude))) {
-            $data['lat'] = (string)$latitude;
-            $data['long'] = (string)$longitude;
+            $data['lat'] = $latitude;
+            $data['long'] = $longitude;
         }
         if (!(is_null($place_id))) {
-            $data['place_id'] = (string)$place_id;
+            $data['place_id'] = $place_id;
         }
         if ($display_coordinates) {
             $data['display_coordinates'] = 'true';
