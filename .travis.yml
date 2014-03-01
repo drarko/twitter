@@ -9,13 +9,18 @@ php:
 
 before_script:
   - composer self-update
+  - composer require satooshi/php-coveralls:dev-master --no-update
   - composer install
   - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
 
 script:
+  - mkdir -p build/logs
   - phpcs --standard=psr2 src/
   - phpunit --coverage-text
+
+after_script:
+  - php vendor/bin/coveralls
 
 matrix:
   allow_failures:
