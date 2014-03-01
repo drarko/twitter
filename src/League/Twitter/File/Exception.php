@@ -1,4 +1,4 @@
-<?php namespace League\Twitter\Filw;
+<?php namespace League\Twitter\File;
 
 class Exception extends \Exception
 {
