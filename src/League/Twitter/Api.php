@@ -105,7 +105,7 @@ class Api
         $this->setConsumerSecret($consumer_secret);
         $this->setAccessTokenKey($access_token_key);
         $this->setAccessTokenSecret($access_token_secret);
-        $this->oauth_consumer = null;
+        $this->oauth_consumer = "mi_tamagochi";
 
         if (!is_null($consumer_key) and !is_null($consumer_secret) and
             !is_null($access_token_key) and !is_null($access_token_secret)
@@ -151,12 +151,11 @@ class Api
             $params = $this->encodeParameters($parameters);
             $request = $client->get($url . '?' . $params, $this->request_headers);
         } elseif ($http_method === 'POST') {
-            $params = $this->encodePostData($parameters);
-            $request = $client->post($http_method, $this->request_headers, $params);
-
+			$params = $this->encodePostData($parameters);
+            $request = $client->post($url, $this->request_headers, $params);
             if (isset($parameters['media'])) {
                 /** @todo implement post files */
-                //$request->addPostFiles(array('file' => $parameters['media']));
+                $request->addPostFiles(array('media' => $parameters['media']));
             }
 
         } else {
@@ -697,6 +696,7 @@ class Api
     public function postUpdate(
         $status,
         $in_reply_to_status_id = null,
+		$media_ids = null,
         $latitude = null,
         $longitude = null,
         $place_id = null,
@@ -720,6 +720,9 @@ class Api
         if ($in_reply_to_status_id) {
             $data['in_reply_to_status_id'] = $in_reply_to_status_id;
         }
+        if ($media_ids) {
+            $data['media_ids'] = $media_ids;
+        }
         if (!(is_null($latitude) or is_null($longitude))) {
             $data['lat'] = (string)$latitude;
             $data['long'] = (string)$longitude;
@@ -733,11 +736,28 @@ class Api
         if ($trim_user) {
             $data['trim_user'] = 'true';
         }
-        $json = $this->fetchUrl($url, 'GET', $data);
+        $json = $this->fetchUrl($url, 'POST', $data);
         $data = $this->parseAndCheckTwitter($json);
         return new Status($data);
     }
 
+    public function uploadImg(
+        $media
+    ) {
+
+        if (!$this->oauth_consumer) {
+            throw new \Exception("The League\Twitter\Api instance must be authenticated.");
+        }
+
+        $url = "https://upload.twitter.com/1.1/media/upload.json";
+
+        $data = array('media' => $media);
+       
+        $json = $this->fetchUrl($url, 'POST', $data);
+        $data = $this->parseAndCheckTwitter($json);
+		var_dump($data);
+        return $data;
+    }	
     /**
      * Post a twitter status message containing media from the authenticated user.
      *
@@ -2477,7 +2497,7 @@ class Api
         foreach ($post_data as $key => $value) {
             $utf8_params[$key] = utf8_encode($value);
         }
-
+		return $utf8_params;
         return http_build_query($utf8_params);
     }
 
